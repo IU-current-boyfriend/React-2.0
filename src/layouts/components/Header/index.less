@@ -1,0 +1,44 @@
+/* toolBar left */
+.tool-bar-lf {
+  display: flex;
+  align-items: center;
+  padding-right: 50px;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, #000000 0%, #000000 calc(100% - 50px), transparent);
+  .collapsed {
+    margin-right: 20px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.3s;
+    &:hover {
+      color: var(--hooks-colorPrimaryText);
+    }
+  }
+  .ant-breadcrumb {
+    white-space: nowrap;
+    ol {
+      flex-wrap: nowrap;
+    }
+  }
+}
+
+/* toolBar right */
+.tool-bar-ri {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  height: 55px;
+  .header-icon {
+    & > * {
+      margin-left: 20px;
+    }
+  }
+  .username {
+    margin: 20px;
+    font-size: 15px;
+  }
+  .avatar {
+    cursor: pointer;
+  }
+}

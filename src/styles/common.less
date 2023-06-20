@@ -1,0 +1,74 @@
+/* global */
+html,
+body,
+#root,
+.ant-app {
+  height: 100%;
+  background-color: var(--hooks-colorBgContainer);
+}
+
+/* scroll bar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--hooks-colorFillContentHover);
+  border-radius: 20px;
+}
+
+/* page switch animation */
+.fade-enter {
+  opacity: 0;
+  transform: translateX(-40px);
+}
+.fade-enter-active,
+.fade-exit-active {
+  opacity: 1;
+  transition: all 0.3s ease-out;
+  transform: translateX(0);
+}
+.fade-exit {
+  opacity: 0;
+  transform: translateX(40px);
+}
+
+/* card */
+.card {
+  box-sizing: border-box;
+  padding: 20px;
+  overflow-x: hidden;
+  background-color: var(--hooks-colorBgContainer);
+  border: 1px solid var(--hooks-colorBorderSecondary);
+  border-radius: 8px;
+}
+
+/* 外边距、内边距全局样式 */
+.mt-loop (@i: 0) when (@i <= 100) {
+  .mt@{i} {
+    margin-top: ~"@{i}px !important";
+  }
+  .mr@{i} {
+    margin-right: ~"@{i}px !important";
+  }
+  .mb@{i} {
+    margin-bottom: ~"@{i}px !important";
+  }
+  .ml@{i} {
+    margin-left: ~"@{i}px !important";
+  }
+  .pt@{i} {
+    padding-top: ~"@{i}px !important";
+  }
+  .pr@{i} {
+    padding-right: ~"@{i}px !important";
+  }
+  .pb@{i} {
+    padding-bottom: ~"@{i}px !important";
+  }
+  .pl@{i} {
+    padding-left: ~"@{i}px !important";
+  }
+  .mt-loop(@i + 1);
+}
+.mt-loop();

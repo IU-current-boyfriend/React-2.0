@@ -1,0 +1,74 @@
+{
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": true
+  },
+  "stylelint.enable": true,
+  "stylelint.validate": ["css", "less", "postcss", "scss", "sass", "html"],
+  "files.eol": "\n",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[less]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "cSpell.words": [
+    "ahooks",
+    "alicdn",
+    "AMAP",
+    "antd",
+    "anticon",
+    "Appstore",
+    "breakline",
+    "brotli",
+    "commitlint",
+    "contentleft",
+    "contentright",
+    "doclock",
+    "echarts",
+    "esbuild",
+    "fangda",
+    "geeker",
+    "hexs",
+    "Iconfont",
+    "loglevel",
+    "nprogress",
+    "persistor",
+    "Prefixs",
+    "reduxjs",
+    "screenfull",
+    "Sider",
+    "sortablejs",
+    "sousuo",
+    "styl",
+    "stylelint",
+    "suoxiao",
+    "truetype",
+    "tuichu",
+    "xiala",
+    "xiaoxi",
+    "zhongyingwen",
+    "zhuti"
+  ]
+}

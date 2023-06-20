@@ -50,7 +50,10 @@ const LoginForm: React.FC = () => {
 
   useEffect(() => {
     document.onkeydown = e => {
-      if (e.code === "Enter" || e.code === "enter" || e.code === "NumpadEnter") navigate(HOME_URL);
+      if (e.code === "Enter" || e.code === "enter" || e.code === "NumpadEnter") {
+        e.preventDefault();
+        formRef.current?.submit();
+      }
     };
     return () => {
       document.onkeydown = () => {};

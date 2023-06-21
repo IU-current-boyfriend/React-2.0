@@ -6,7 +6,7 @@ import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useLocation, useMatches, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addTabs, removeTabs } from "@/redux/modules/tabs";
+import { addTab, removeTab } from "@/redux/modules/tabs";
 import { MetaProps } from "@/routers/interface";
 import MoreButton from "./components/MoreButton";
 import "./index.less";
@@ -40,6 +40,7 @@ const DraggableTabs: React.FC<TabsProps> = ({ items = [] }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
+
   const fullPath = location.pathname + location.search;
 
   const [order, setOrder] = useState<React.Key[]>([]);
@@ -83,7 +84,7 @@ const DraggableTabs: React.FC<TabsProps> = ({ items = [] }) => {
 
   const onEdit = (targetKey: TargetKey, action: "add" | "remove") => {
     if (action === "remove" && typeof targetKey == "string") {
-      dispatch(removeTabs({ tabPath: targetKey, isCurrent: targetKey == fullPath }));
+      dispatch(removeTab({ path: targetKey, isCurrent: targetKey == fullPath }));
     }
   };
 
@@ -99,7 +100,7 @@ const DraggableTabs: React.FC<TabsProps> = ({ items = [] }) => {
         activeKey={fullPath}
         onEdit={onEdit}
         onChange={onChange}
-        tabBarExtraContent={<MoreButton />}
+        tabBarExtraContent={<MoreButton path={fullPath} />}
       />
     </DndProvider>
   );
@@ -126,7 +127,7 @@ const LayoutTabs: React.FC = () => {
           path: item.path as string,
           closable: !item.meta.isAffix
         };
-        dispatch(addTabs(tabValue));
+        dispatch(addTab(tabValue));
       }
     });
   };
@@ -140,7 +141,7 @@ const LayoutTabs: React.FC = () => {
         path: fullPath,
         closable: !meta.isAffix
       };
-      dispatch(addTabs(tabValue));
+      dispatch(addTab(tabValue));
     }
   }, [matches]);
 

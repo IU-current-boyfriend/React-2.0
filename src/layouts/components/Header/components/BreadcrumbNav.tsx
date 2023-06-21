@@ -1,42 +1,76 @@
-import React, { useEffect, useState } from "react";
+import { Breadcrumb } from "antd";
+import React, { useEffect, useMemo, useState } from "react";
 import { ItemType } from "antd/es/breadcrumb/Breadcrumb";
+import { MetaProps, RouteObjectType } from "@/routers/interface";
+import { Link, useMatches } from "react-router-dom";
 import { RootState, useSelector } from "@/redux";
-import { MetaProps } from "@/routers/interface";
-import { useMatches } from "react-router-dom";
+import { getAllBreadcrumbList } from "@/utils";
 import { Icon } from "@/components/Icon";
 import { HOME_URL } from "@/config";
-import { Breadcrumb } from "antd";
 
 const BreadcrumbNav: React.FC = () => {
   const matches = useMatches();
-  const [breadcrumbList, setBreadcrumbList] = useState<ItemType[]>([]);
-  const breadcrumbAllList = useSelector((state: RootState) => state.auth.breadcrumbAllList);
-  const { breadcrumb, breadcrumbIcon } = useSelector((state: RootState) => state.global);
+
+  const authMenuList = useSelector((state: RootState) => state.auth.authMenuList);
+  const breadcrumb = useSelector((state: RootState) => state.global.breadcrumb);
+  const breadcrumbIcon = useSelector((state: RootState) => state.global.breadcrumbIcon);
+  const breadcrumbAllList = useMemo(() => getAllBreadcrumbList(authMenuList), [authMenuList]);
+
+  const [curBreadcrumbList, setCurBreadcrumbList] = useState<ItemType[]>([]);
+
+  // Render Title
+  const renderTitle = (item: RouteObjectType, isLink: boolean) => {
+    const { icon, title } = item.meta || {};
+    const content = (
+      <>
+        <span className="mr5">{breadcrumbIcon && <Icon name={icon!} />}</span>
+        <span>{title}</span>
+      </>
+    );
+    return isLink ? <Link to={item.path!}>{content}</Link> : content;
+  };
 
   useEffect(() => {
     const meta = matches[matches.length - 1].data as MetaProps;
-    if (meta?.key) {
-      let breadcrumbList = breadcrumbAllList[meta.key] || [];
-      // You don’t need breadcrumbs on the home page, you can delete the following judgments
-      if (breadcrumbList[0]?.path !== HOME_URL) {
-        breadcrumbList = [{ path: HOME_URL, meta: { icon: "HomeOutlined", title: "首页" } }, ...breadcrumbList];
-      }
-      setBreadcrumbList(
-        breadcrumbList.map(item => {
-          return {
-            title: (
-              <>
-                {breadcrumbIcon && <Icon name={item.meta!.icon!} />}
-                <span>{item.meta!.title}</span>
-              </>
-            )
-          };
-        })
-      );
+    if (!meta?.key) return;
+
+    let breadcrumbList = breadcrumbAllList[meta.key] || [];
+
+    // You don’t need breadcrumbs on the home page, you can delete the following judgments
+    if (breadcrumbList[0]?.path !== HOME_URL) {
+      breadcrumbList = [{ path: HOME_URL, meta: { icon: "HomeOutlined", title: "首页" } }, ...breadcrumbList];
     }
+
+    // Processed into the format required by antd breadcrumbs
+    const antdBreadcrumbList = breadcrumbList.map(item => {
+      const isLast = breadcrumbList.lastIndexOf(item) === breadcrumbList.length - 1;
+
+      // The last breadcrumb is not clickable
+      if (isLast) return { title: renderTitle(item, false) };
+
+      // Render breadcrumb children
+      if (item.children) {
+        const items = item.children.filter(child => !child.meta?.isHide);
+        return items.length
+          ? {
+              title: <a>{renderTitle(item, false)}</a>,
+              menu: {
+                items: items.map(child => {
+                  return { title: renderTitle(child, true) };
+                })
+              }
+            }
+          : { title: renderTitle(item, true) };
+      }
+
+      // Other breadcrumb
+      return { title: renderTitle(item, true) };
+    });
+
+    setCurBreadcrumbList(antdBreadcrumbList);
   }, [matches]);
 
-  return <>{breadcrumb && <Breadcrumb items={breadcrumbList}></Breadcrumb>}</>;
+  return <>{breadcrumb && <Breadcrumb items={curBreadcrumbList}></Breadcrumb>}</>;
 };
 
 export default BreadcrumbNav;

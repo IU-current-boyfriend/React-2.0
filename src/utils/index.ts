@@ -68,7 +68,11 @@ export function getShowMenuList(menuList: RouteObjectType[]) {
  * @param {Object} result - The processed result.
  * @returns {Object}
  */
-export const getAllBreadcrumbList = (menuList: RouteObjectType[], parent = [], result: { [key: string]: any } = {}) => {
+export const getAllBreadcrumbList = (
+  menuList: RouteObjectType[],
+  parent: RouteObjectType[] = [],
+  result: { [key: string]: RouteObjectType[] } = {}
+) => {
   for (const item of menuList) {
     result[item.meta!.key!] = [...parent, item];
     if (item.children) getAllBreadcrumbList(item.children, result[item.meta!.key!], result);

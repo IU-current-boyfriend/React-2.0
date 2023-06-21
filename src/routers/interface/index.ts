@@ -13,6 +13,7 @@ export interface MetaProps {
 }
 
 export type RouteObjectType = Omit<RouteObject, "children"> & {
+  redirect?: string;
   meta?: MetaProps;
   children?: RouteObjectType[];
 };

@@ -20,8 +20,9 @@ const LayoutMain: React.FC = () => {
   const outlet = useOutlet();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  const flatMenuList = useSelector((state: RootState) => state.auth.flatMenuList);
+
   const isCollapse = useSelector((state: RootState) => state.global.isCollapse);
+  const flatMenuList = useSelector((state: RootState) => state.auth.flatMenuList);
 
   // Monitor window changes, collapse menu
   const { run } = useDebounceFn(

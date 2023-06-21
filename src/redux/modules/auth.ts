@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AuthState } from "@/redux/interface";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getAuthMenuListApi } from "@/api/modules/login";
-import { getAllBreadcrumbList, getFlatMenuList, getShowMenuList } from "@/utils";
+import { getFlatMenuList, getShowMenuList } from "@/utils";
 import { RouteObjectType } from "@/routers/interface";
 
 const authState: AuthState = {
@@ -13,9 +13,7 @@ const authState: AuthState = {
   // Menu permission list ==> left menu bar rendering, need to remove isHide == true
   showMenuList: [],
   // Menu permission list ==> flattened one-dimensional array menu, mainly used to add dynamic routing
-  flatMenuList: [],
-  // List of all breadcrumbs after recursive processing
-  breadcrumbAllList: {}
+  flatMenuList: []
 };
 
 export const fetchMenuList = createAsyncThunk("hooks-auth/fetchMenuList", async () => {
@@ -36,7 +34,6 @@ const authSlice = createSlice({
       state.authMenuList = payload;
       state.flatMenuList = getFlatMenuList(payload);
       state.showMenuList = getShowMenuList(payload);
-      state.breadcrumbAllList = getAllBreadcrumbList(payload);
     });
   }
 });

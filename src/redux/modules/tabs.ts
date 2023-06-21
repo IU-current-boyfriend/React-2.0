@@ -12,25 +12,36 @@ const tabsSlice = createSlice({
     setTabsList(state, { payload }: PayloadAction<TabsState["tabsList"]>) {
       state.tabsList = payload;
     },
-    addTabs(state, { payload }: PayloadAction<TabsListProp>) {
+    addTab(state, { payload }: PayloadAction<TabsListProp>) {
       if (state.tabsList.every(item => item.path !== payload.path)) {
         state.tabsList.push(payload);
       }
     },
-    removeTabs(state, { payload }: PayloadAction<{ tabPath: string; isCurrent: boolean }>) {
+    removeTab(state, { payload }: PayloadAction<{ path: string; isCurrent: boolean }>) {
       const tabsList = state.tabsList;
       if (payload.isCurrent) {
         tabsList.forEach((item, index) => {
-          if (item.path !== payload.tabPath) return;
+          if (item.path !== payload.path) return;
           const nextTab = tabsList[index + 1] || tabsList[index - 1];
           if (!nextTab) return;
           window.$navigate(nextTab.path);
         });
       }
-      state.tabsList = tabsList.filter(item => item.path !== payload.tabPath);
+      state.tabsList = tabsList.filter(item => item.path !== payload.path);
+    },
+    closeMultipleTab(state, { payload }: PayloadAction<{ path?: string }>) {
+      state.tabsList = state.tabsList.filter(item => {
+        return item.path === payload.path || !item.closable;
+      });
+    },
+    setTabTitle(state, { payload }: PayloadAction<string>) {
+      const nowFullPath = location.hash.substring(1);
+      state.tabsList.forEach(item => {
+        if (item.path == nowFullPath) item.title = payload;
+      });
     }
   }
 });
 
-export const { addTabs, removeTabs, setTabsList } = tabsSlice.actions;
+export const { setTabsList, addTab, removeTab, closeMultipleTab, setTabTitle } = tabsSlice.actions;
 export default tabsSlice.reducer;

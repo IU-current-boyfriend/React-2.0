@@ -28,34 +28,40 @@ const AvatarIcon: React.FC = () => {
       cancelText: "取消",
       maskClosable: true,
       onOk: async () => {
+        // Execute the logout interface
         await logoutApi();
-        navigate(LOGIN_URL);
-        message.success("退出登录成功！");
 
+        // Set token to empty
         dispatch(setToken(""));
         // Update authMenuList asynchronously to prevent 404 page
         setTimeout(() => dispatch(setAuthMenuList([])));
+
+        // Jump to login page
+        navigate(LOGIN_URL);
+        message.success("退出登录成功！");
       }
     });
   };
+
+  const style = { fontSize: "14px" };
 
   const items: MenuProps["items"] = [
     {
       key: "1",
       label: <span className="dropdown-item">首页</span>,
-      icon: <HomeOutlined style={{ fontSize: "14px" }} />,
+      icon: <HomeOutlined style={style} />,
       onClick: () => navigate(HOME_URL)
     },
     {
       key: "2",
       label: <span className="dropdown-item">个人信息</span>,
-      icon: <UserOutlined style={{ fontSize: "14px" }} />,
+      icon: <UserOutlined style={style} />,
       onClick: () => infoRef.current?.showModal({ name: "hooks" })
     },
     {
       key: "3",
       label: <span className="dropdown-item">修改密码</span>,
-      icon: <FormOutlined style={{ fontSize: "14px" }} />,
+      icon: <FormOutlined style={style} />,
       onClick: () => passRef.current?.showModal({ name: "hooks" })
     },
     {
@@ -64,7 +70,7 @@ const AvatarIcon: React.FC = () => {
     {
       key: "4",
       label: <span className="dropdown-item">退出登录</span>,
-      icon: <LoginOutlined style={{ fontSize: "14px" }} />,
+      icon: <LoginOutlined style={style} />,
       onClick: logout
     }
   ];

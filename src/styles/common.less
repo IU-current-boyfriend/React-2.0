@@ -7,6 +7,16 @@ body,
   background-color: var(--hooks-colorBgContainer);
 }
 
+/* card */
+.card {
+  box-sizing: border-box;
+  padding: 20px;
+  overflow-x: hidden;
+  background-color: var(--hooks-colorBgContainer);
+  border: 1px solid var(--hooks-colorBorderSecondary);
+  border-radius: 8px;
+}
+
 /* scroll bar */
 ::-webkit-scrollbar {
   width: 6px;
@@ -33,14 +43,16 @@ body,
   transform: translateX(40px);
 }
 
-/* card */
-.card {
-  box-sizing: border-box;
-  padding: 20px;
-  overflow-x: hidden;
-  background-color: var(--hooks-colorBgContainer);
-  border: 1px solid var(--hooks-colorBorderSecondary);
-  border-radius: 8px;
+/* nprogress */
+#nprogress .bar {
+  background: var(--hooks-colorPrimary) !important;
+}
+#nprogress .spinner-icon {
+  border-top-color: var(--hooks-colorPrimary) !important;
+  border-left-color: var(--hooks-colorPrimary) !important;
+}
+#nprogress .peg {
+  box-shadow: 0 0 10px var(--hooks-colorPrimary), 0 0 5px var(--hooks-colorPrimary) !important;
 }
 
 /* 外边距、内边距全局样式 */

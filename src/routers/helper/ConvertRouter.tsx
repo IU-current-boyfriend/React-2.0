@@ -5,6 +5,7 @@ import LazyComponent from "./LazyComponent";
 import RouterGuard from "./RouterGuard";
 import LayoutIndex from "@/layouts";
 import { Navigate } from "react-router-dom";
+import NProgress from "nprogress";
 
 // Import all view files in the views directory
 const modules = import.meta.glob("@/views/**/*.tsx") as Record<string, Parameters<typeof lazy>[number]>;
@@ -22,6 +23,7 @@ export const convertToDynamicRouterFormat = (authMenuList: RouteObjectType[]) =>
       const Component = LazyComponent(lazy(modules["/src/views" + item.element + ".tsx"]));
       item.element = <RouterGuard>{Component}</RouterGuard>;
       item.loader = () => {
+        NProgress.start();
         return { ...item.meta };
       };
     }

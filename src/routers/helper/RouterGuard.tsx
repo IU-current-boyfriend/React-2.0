@@ -3,6 +3,7 @@ import { useLocation, useMatches, useNavigate } from "react-router-dom";
 import { RootState, useSelector } from "@/redux";
 import { HOME_URL, LOGIN_URL } from "@/config";
 import { MetaProps } from "@/routers/interface";
+import NProgress from "@/config/nprogress";
 
 /**
  * @description Route guard component
@@ -12,6 +13,8 @@ interface RouterGuardProps {
 }
 
 const RouterGuard = (props: RouterGuardProps) => {
+  NProgress.done();
+
   const matches = useMatches();
   const navigate = useNavigate();
   const { pathname } = useLocation();

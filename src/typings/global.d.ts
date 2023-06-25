@@ -39,3 +39,5 @@ type ObjToKeyValUnion<T> = {
 type ObjToKeyValArray<T> = {
   [K in keyof T]: [K, T[K]];
 }[keyof T];
+
+type Optional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;

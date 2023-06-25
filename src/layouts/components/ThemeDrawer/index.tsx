@@ -3,6 +3,7 @@ import { setGlobalState } from "@/redux/modules/global";
 import { RootState, useDispatch, useSelector } from "@/redux";
 import { LayoutOutlined, FireOutlined, SettingOutlined, CheckCircleFilled } from "@ant-design/icons";
 import ColorPicker from "./components/ColorPicker";
+import { shallowEqual } from "react-redux";
 import "./index.less";
 
 const ThemeDrawer: React.FC = () => {
@@ -21,7 +22,7 @@ const ThemeDrawer: React.FC = () => {
     tabsIcon,
     footer,
     themeDrawerVisible
-  } = useSelector((state: RootState) => state.global);
+  } = useSelector((state: RootState) => state.global, shallowEqual);
 
   return (
     <Drawer
@@ -29,7 +30,7 @@ const ThemeDrawer: React.FC = () => {
       closable={false}
       maskClosable={true}
       open={themeDrawerVisible}
-      width={300}
+      width={290}
       className="theme-drawer"
       onClose={() => dispatch(setGlobalState({ key: "themeDrawerVisible", value: false }))}
     >
@@ -38,7 +39,7 @@ const ThemeDrawer: React.FC = () => {
         <LayoutOutlined />
         布局切换
       </Divider>
-      <div className="layout-box mb20">
+      <div className="layout-box mb28">
         <Tooltip placement="top" title="纵向" arrow={true} mouseEnterDelay={0.2}>
           <div
             className={`layout-item mb20 layout-vertical ${layout === "vertical" ? "layout-active" : ""}`}
@@ -120,7 +121,7 @@ const ThemeDrawer: React.FC = () => {
         <span>紧凑主题</span>
         <Switch checked={compactAlgorithm} onChange={value => dispatch(setGlobalState({ key: "compactAlgorithm", value }))} />
       </div>
-      <div className="theme-item mb25">
+      <div className="theme-item mb35">
         <span>圆角大小</span>
         <InputNumber
           min={1}

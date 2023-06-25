@@ -7,6 +7,7 @@ import { message } from "@/hooks/useMessage";
 import { setToken } from "@/redux/modules/user";
 import { checkStatus } from "./helper/checkStatus";
 import { store } from "@/redux";
+import NProgress from "@/config/nprogress";
 
 export interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   noLoading?: boolean;
@@ -34,6 +35,7 @@ class RequestHttp {
      */
     this.service.interceptors.request.use(
       (config: CustomAxiosRequestConfig) => {
+        NProgress.start();
         // The current request does not need to display loading, which is controlled by the specified third parameter in the api service: { noLoading: true }
         config.noLoading || showFullScreenLoading();
         if (config.headers && typeof config.headers.set === "function") {
@@ -53,6 +55,7 @@ class RequestHttp {
     this.service.interceptors.response.use(
       (response: AxiosResponse) => {
         const { data } = response;
+        NProgress.done();
         tryHideFullScreenLoading();
         // login failure
         if (data.code == ResultEnum.OVERDUE) {
@@ -71,6 +74,7 @@ class RequestHttp {
       },
       async (error: AxiosError) => {
         const { response } = error;
+        NProgress.done();
         tryHideFullScreenLoading();
         // Request timeout && network error judged separately, no response
         if (error.message.indexOf("timeout") !== -1) message.error("请求超时！请您稍后重试");

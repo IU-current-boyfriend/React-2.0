@@ -6,7 +6,6 @@ import NotAuth from "@/components/Error/403";
 import NotFound from "@/components/Error/404";
 import NotNetwork from "@/components/Error/500";
 import RouterGuard from "../helper/RouterGuard";
-import NProgress from "@/config/nprogress";
 
 /**
  * staticRouter
@@ -58,7 +57,6 @@ export const wrappedStaticRouter = staticRouter.map(route => {
     ...route,
     element: <RouterGuard>{route.element as JSX.Element}</RouterGuard>,
     loader: () => {
-      NProgress.start();
       return { ...route.meta };
     }
   };

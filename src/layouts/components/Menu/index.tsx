@@ -12,8 +12,10 @@ const LayoutMenu: React.FC = () => {
   const matches = useMatches();
   const { pathname } = useLocation();
 
-  const { isDark, isCollapse } = useSelector((state: RootState) => state.global);
-  const { showMenuList, flatMenuList } = useSelector((state: RootState) => state.auth);
+  const isDark = useSelector((state: RootState) => state.global.isDark);
+  const isCollapse = useSelector((state: RootState) => state.global.isCollapse);
+  const showMenuList = useSelector((state: RootState) => state.auth.showMenuList);
+  const flatMenuList = useSelector((state: RootState) => state.auth.flatMenuList);
 
   const [menuList, setMenuList] = useState<MenuItem[]>([]);
   const [openKeys, setOpenKeys] = useState<string[]>([]);
@@ -53,7 +55,8 @@ const LayoutMenu: React.FC = () => {
     const meta = matches[matches.length - 1].data as MetaProps;
     const keys = meta?.activeMenu ?? pathname;
     setSelectedKeys([keys]);
-    isCollapse || setOpenKeys(getOpenKeys(pathname));
+    // Use setTimeout to prevent style exceptions from menu expansion
+    setTimeout(() => isCollapse || setOpenKeys(getOpenKeys(pathname)));
   }, [matches, isCollapse]);
 
   const onOpenChange = (openKeys: string[]) => {

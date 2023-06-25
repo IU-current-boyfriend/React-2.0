@@ -1,15 +1,19 @@
 import { lazy } from "react";
-import { getFlatMenuList } from "@/utils";
+import { Navigate } from "react-router-dom";
 import { RouteObjectType } from "../interface";
+import { getFlatMenuList } from "@/utils";
 import LazyComponent from "./LazyComponent";
 import RouterGuard from "./RouterGuard";
 import LayoutIndex from "@/layouts";
-import { Navigate } from "react-router-dom";
-import NProgress from "nprogress";
 
 // Import all view files in the views directory
 const modules = import.meta.glob("@/views/**/*.tsx") as Record<string, Parameters<typeof lazy>[number]>;
 
+/**
+ * @description Convert menuList to the format required by react-router
+ * @param {Array} authMenuList Permissions menu list
+ * @returns react-router
+ */
 export const convertToDynamicRouterFormat = (authMenuList: RouteObjectType[]) => {
   // Flatten the routing first here, you cannot directly use flatMenuList in redux
   const flatMenuList = getFlatMenuList(authMenuList);
@@ -23,7 +27,6 @@ export const convertToDynamicRouterFormat = (authMenuList: RouteObjectType[]) =>
       const Component = LazyComponent(lazy(modules["/src/views" + item.element + ".tsx"]));
       item.element = <RouterGuard>{Component}</RouterGuard>;
       item.loader = () => {
-        NProgress.start();
         return { ...item.meta };
       };
     }

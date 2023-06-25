@@ -6,12 +6,12 @@ import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useLocation, useMatches, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addTab, removeTab } from "@/redux/modules/tabs";
+import { addTab, removeTab, setTabsList } from "@/redux/modules/tabs";
 import { MetaProps } from "@/routers/interface";
 import MoreButton from "./components/MoreButton";
 import "./index.less";
 
-type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
+type TargetKey = string | React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>;
 
 const type = "DraggableTabNode";
 
@@ -43,6 +43,8 @@ const DraggableTabs: React.FC<TabsProps> = ({ items = [] }) => {
 
   const fullPath = location.pathname + location.search;
 
+  const tabsList = useSelector((state: RootState) => state.tabs.tabsList);
+
   const [order, setOrder] = useState<React.Key[]>([]);
 
   const moveTabNode = (dragKey: React.Key, hoverKey: React.Key) => {
@@ -55,6 +57,13 @@ const DraggableTabs: React.FC<TabsProps> = ({ items = [] }) => {
     newOrder.splice(dragIndex, 1);
     newOrder.splice(hoverIndex, 0, dragKey);
     setOrder(newOrder);
+
+    // Set sorted tabsList
+    const newTabsList = newOrder.map(tabOrder => {
+      const index = tabsList.findIndex(tab => tab.path === tabOrder);
+      return tabsList[index];
+    });
+    dispatch(setTabsList(newTabsList));
   };
 
   const renderTabBar: TabsProps["renderTabBar"] = (tabBarProps, DefaultTabBar) => (
@@ -110,11 +119,13 @@ const LayoutTabs: React.FC = () => {
   const matches = useMatches();
   const dispatch = useDispatch();
   const location = useLocation();
+
   const fullPath = location.pathname + location.search;
 
+  const tabs = useSelector((state: RootState) => state.global.tabs);
+  const tabsIcon = useSelector((state: RootState) => state.global.tabsIcon);
   const tabsList = useSelector((state: RootState) => state.tabs.tabsList);
   const flatMenuList = useSelector((state: RootState) => state.auth.flatMenuList);
-  const { tabs, tabsIcon } = useSelector((state: RootState) => state.global);
 
   useEffect(() => initTabs(), []);
 

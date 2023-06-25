@@ -1,11 +1,12 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { theme, ConfigProvider, App as AppProvider } from "antd";
 import { RootState, useSelector } from "@/redux";
 import { I18nextProvider } from "react-i18next";
-import { useDispatch } from "react-redux";
+import { shallowEqual, useDispatch } from "react-redux";
 import { setGlobalState } from "@/redux/modules/global";
 import { LanguageType } from "@/redux/interface";
 import { getBrowserLang } from "@/utils";
+import { RefreshProvider } from "@/context/Refresh";
 import RouterProvider from "@/routers";
 import i18n from "@/languages/index";
 import enUS from "antd/locale/en_US";
@@ -15,9 +16,17 @@ import "dayjs/locale/zh-cn";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-  const { isDark, primary, componentSize, compactAlgorithm, borderRadius, language } = useSelector(
-    (state: RootState) => state.global
-  );
+
+  const { isDark, primary, componentSize, compactAlgorithm, borderRadius, language } = useSelector((state: RootState) => {
+    return {
+      isDark: state.global.isDark,
+      primary: state.global.primary,
+      componentSize: state.global.componentSize,
+      compactAlgorithm: state.global.compactAlgorithm,
+      borderRadius: state.global.borderRadius,
+      language: state.global.language
+    };
+  }, shallowEqual);
 
   // init theme algorithm
   const algorithm = () => {
@@ -48,9 +57,11 @@ const App: React.FC = () => {
       }}
     >
       <AppProvider>
-        <I18nextProvider i18n={i18n}>
-          <RouterProvider />
-        </I18nextProvider>
+        <RefreshProvider>
+          <I18nextProvider i18n={i18n}>
+            <RouterProvider />
+          </I18nextProvider>
+        </RefreshProvider>
       </AppProvider>
     </ConfigProvider>
   );

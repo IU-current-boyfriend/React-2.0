@@ -38,7 +38,7 @@ const BreadcrumbNav: React.FC = () => {
 
     // You don’t need breadcrumbs on the home page, you can delete the following judgments
     if (breadcrumbList[0]?.path !== HOME_URL) {
-      breadcrumbList = [{ path: HOME_URL, meta: { icon: "HomeOutlined", title: "首页" } }, ...breadcrumbList];
+      breadcrumbList.unshift({ path: HOME_URL, meta: { icon: "HomeOutlined", title: "首页" } });
     }
 
     // Processed into the format required by antd breadcrumbs
@@ -53,6 +53,7 @@ const BreadcrumbNav: React.FC = () => {
         const items = item.children.filter(child => !child.meta?.isHide);
         return items.length
           ? {
+              dropdownProps: { arrow: { pointAtCenter: true } },
               title: <a>{renderTitle(item, false)}</a>,
               menu: {
                 items: items.map(child => {
@@ -68,7 +69,7 @@ const BreadcrumbNav: React.FC = () => {
     });
 
     setCurBreadcrumbList(antdBreadcrumbList);
-  }, [matches]);
+  }, [matches, breadcrumbIcon]);
 
   return <>{breadcrumb && <Breadcrumb items={curBreadcrumbList}></Breadcrumb>}</>;
 };

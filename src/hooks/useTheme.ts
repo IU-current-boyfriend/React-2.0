@@ -1,6 +1,7 @@
 import { theme } from "antd";
 import { RootState, useSelector } from "@/redux";
 import { getLightColor, getDarkColor } from "@/utils/color";
+import { shallowEqual } from "react-redux";
 import themeConfig from "@/styles/theme";
 
 /**
@@ -8,7 +9,15 @@ import themeConfig from "@/styles/theme";
  * */
 const useTheme = () => {
   const { token }: { [key: string]: any } = theme.useToken();
-  const { isDark, primary, isGrey, isWeak } = useSelector((state: RootState) => state.global);
+
+  const { isDark, primary, isGrey, isWeak } = useSelector((state: RootState) => {
+    return {
+      isDark: state.global.isDark,
+      primary: state.global.primary,
+      isGrey: state.global.isGrey,
+      isWeak: state.global.isWeak
+    };
+  }, shallowEqual);
 
   // Toggle dark mode
   const switchDark = () => {

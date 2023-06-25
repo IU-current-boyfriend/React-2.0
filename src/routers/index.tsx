@@ -8,6 +8,9 @@ import useTheme from "@/hooks/useTheme";
 import useMessage from "@/hooks/useMessage";
 import NotFound from "@/components/Error/404";
 
+/**
+ * @description Route file entry
+ */
 const RouterProvider: React.FC = () => {
   // initTheme && useMessage
   const { initTheme } = useTheme();

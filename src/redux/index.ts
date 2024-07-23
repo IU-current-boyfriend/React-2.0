@@ -14,7 +14,8 @@ const reducer = combineReducers({ global, tabs, auth, user });
 // redux persist
 const persistConfig = {
   key: "redux-state",
-  storage: storage
+  storage: storage,
+  blacklist: ["auth"]
 };
 const persistReducerConfig = persistReducer(persistConfig, reducer);
 

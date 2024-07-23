@@ -6,6 +6,8 @@ import { getFlatMenuList, getShowMenuList } from "@/utils";
 import { RouteObjectType } from "@/routers/interface";
 
 const authState: AuthState = {
+  // Has the menu list request ended
+  authMenuLoading: true,
   // List of button permissions
   authButtonList: {},
   // List of menu permissions
@@ -16,9 +18,13 @@ const authState: AuthState = {
   flatMenuList: []
 };
 
-export const fetchMenuList = createAsyncThunk("hooks-auth/fetchMenuList", async () => {
-  const { data } = await getAuthMenuListApi();
-  return data;
+export const fetchMenuList = createAsyncThunk("hooks-auth/fetchMenuList", async (_authState, { rejectWithValue }) => {
+  try {
+    const { data } = await getAuthMenuListApi();
+    return data;
+  } catch (error) {
+    return rejectWithValue(error);
+  }
 });
 
 const authSlice = createSlice({
@@ -34,6 +40,7 @@ const authSlice = createSlice({
       state.authMenuList = payload;
       state.flatMenuList = getFlatMenuList(payload);
       state.showMenuList = getShowMenuList(payload);
+      state.authMenuLoading = false;
     });
   }
 });

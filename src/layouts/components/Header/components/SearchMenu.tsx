@@ -1,4 +1,5 @@
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import React, { useRef, useState, useEffect, useCallback, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { Empty, Input, InputRef, Modal } from "antd";
 import { SearchOutlined, EnterOutlined } from "@ant-design/icons";
 import { Icon } from "@/components/Icon";
@@ -7,19 +8,19 @@ import { RootState, useSelector } from "@/redux";
 import { useDebounce } from "ahooks";
 
 const SearchMenu: React.FC = () => {
+  const navigate = useNavigate();
   const flatMenuList = useSelector((state: RootState) => state.auth.flatMenuList);
   const inputRef = useRef<InputRef>(null);
   const menuListRef = useRef<HTMLDivElement>(null);
 
   const [activePath, setActivePath] = useState("");
   const [searchValue, setSearchValue] = useState("");
-  const [searchList, setSearchList] = useState<RouteObjectType[]>([]);
 
   const debounceSearchValue = useDebounce(searchValue, { wait: 300 });
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const showModal = useCallback(() => setIsModalOpen(true), []);
-  const handleCancel = useCallback(() => setIsModalOpen(false), []);
+  const closeModal = useCallback(() => setIsModalOpen(false), []);
   const handleInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => setSearchValue(event.target.value), []);
 
   // 上下键的滚动具体逻辑
@@ -60,29 +61,38 @@ const SearchMenu: React.FC = () => {
     }
   };
 
+  const selectMenuItem = () => {
+    const menu = searchList.find(item => item.path === activePath);
+    if (!menu) return;
+    if (menu.meta?.isLink) window.open(menu.meta.isLink, "_blank");
+    else navigate(menu.path!);
+    closeModal();
+  };
+
   // 上下键的监听事件
-  const handleKeyUpOrDown = (e: KeyboardEvent) => {
+  const keyboardOperation = (e: KeyboardEvent) => {
     if (e.key === "ArrowUp") {
       e.preventDefault();
       keyPressUpOrDown(-1);
     } else if (e.key === "ArrowDown") {
       e.preventDefault();
       keyPressUpOrDown(1);
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      selectMenuItem();
     }
   };
 
   // 当input控件的值变化的时候
-  useEffect(() => {
-    setSearchList(
-      debounceSearchValue
-        ? // 过滤条件，看meta和path中是否包含输入的字符
-          flatMenuList.filter(
-            item =>
-              item.path!.toLowerCase().includes(debounceSearchValue.toLowerCase()) ||
-              item.meta!.title!.toLocaleLowerCase().includes(debounceSearchValue.toLowerCase())
-          )
-        : []
-    );
+  const searchList = useMemo(() => {
+    return debounceSearchValue
+      ? // 过滤条件，看meta和path中是否包含输入的字符
+        flatMenuList.filter(
+          item =>
+            item.path!.toLowerCase().includes(debounceSearchValue.toLowerCase()) ||
+            item.meta!.title!.toLocaleLowerCase().includes(debounceSearchValue.toLowerCase())
+        )
+      : [];
   }, [debounceSearchValue]);
 
   // 如果searchList发生变化的时候
@@ -91,15 +101,15 @@ const SearchMenu: React.FC = () => {
     searchList.length ? setActivePath(searchList[0].path!) : setActivePath("");
   }, [searchList]);
 
-  const menuMouseEnter = useCallback((item: RouteObjectType) => setActivePath(item.path!), []);
+  const mouseoverMenuItem = useCallback((item: RouteObjectType) => setActivePath(item.path!), []);
 
   // 注册键盘事件
   useEffect(() => {
     const handler = isModalOpen ? window.addEventListener : window.removeEventListener;
-    handler("keydown", handleKeyUpOrDown);
+    handler("keydown", keyboardOperation);
     // 这个clear effect函数不能是handler变量，因为是clean effect是闭包函数，所以会执行多次
-    return () => window.removeEventListener("keydown", handleKeyUpOrDown);
-  }, [isModalOpen, handleKeyUpOrDown]);
+    return () => window.removeEventListener("keydown", keyboardOperation);
+  }, [isModalOpen, keyboardOperation]);
 
   // 控制弹窗
   useEffect(() => {
@@ -113,7 +123,7 @@ const SearchMenu: React.FC = () => {
   return (
     <>
       <i className="iconfont icon-sousuo" onClick={showModal}></i>
-      <Modal className="search-modal" width={600} open={isModalOpen} footer={null} closable={false} onCancel={handleCancel}>
+      <Modal className="search-modal" width={600} open={isModalOpen} footer={null} closable={false} onCancel={closeModal}>
         <Input
           ref={inputRef}
           placeholder="菜单搜索：支持菜单名称、路径"
@@ -129,7 +139,8 @@ const SearchMenu: React.FC = () => {
               <div
                 key={item.path}
                 className={`menu-item ${item.path === activePath && "menu-active"}`}
-                onMouseEnter={() => menuMouseEnter(item)}
+                onMouseEnter={() => mouseoverMenuItem(item)}
+                onClick={() => selectMenuItem()}
               >
                 <Icon className="menu-icon" name={item.meta!.icon!} />
                 <span className="menu-title">{item.meta?.title}</span>

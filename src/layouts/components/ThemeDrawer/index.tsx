@@ -22,7 +22,24 @@ const ThemeDrawer: React.FC = () => {
     tabsIcon,
     footer,
     themeDrawerVisible
-  } = useSelector((state: RootState) => state.global, shallowEqual);
+  } = useSelector(
+    (state: RootState) => ({
+      layout: state.global.layout,
+      compactAlgorithm: state.global.compactAlgorithm,
+      borderRadius: state.global.borderRadius,
+      isDark: state.global.isDark,
+      isGrey: state.global.isGrey,
+      isWeak: state.global.isWeak,
+      isCollapse: state.global.isCollapse,
+      breadcrumb: state.global.breadcrumb,
+      breadcrumbIcon: state.global.breadcrumbIcon,
+      tabs: state.global.tabs,
+      tabsIcon: state.global.tabsIcon,
+      footer: state.global.footer,
+      themeDrawerVisible: state.global.themeDrawerVisible
+    }),
+    shallowEqual
+  );
 
   return (
     <Drawer

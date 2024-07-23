@@ -6,6 +6,7 @@ import NotAuth from "@/components/Error/403";
 import NotFound from "@/components/Error/404";
 import NotNetwork from "@/components/Error/500";
 import RouterGuard from "../helper/RouterGuard";
+import Loading from "@/components/Loading";
 
 /**
  * staticRouter
@@ -47,7 +48,7 @@ export const staticRouter: RouteObjectType[] = [
   // Set <></> here first to prevent page refresh 404
   {
     path: "*",
-    element: <></>
+    element: <Loading />
   }
 ];
 

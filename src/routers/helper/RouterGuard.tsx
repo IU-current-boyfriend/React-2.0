@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { shallowEqual } from "react-redux";
 import { useLocation, useMatches, useNavigate } from "react-router-dom";
 import { RootState, useSelector } from "@/redux";
 import { HOME_URL, LOGIN_URL } from "@/config";
@@ -19,7 +20,8 @@ const RouterGuard: React.FC<RouterGuardProps> = (props: RouterGuardProps) => {
   // Mount navigate to provide non-React function components or calls in custom React Hook functions
   window.$navigate = navigate;
 
-  const token = useSelector((state: RootState) => state.user.token);
+  const token = useSelector((state: RootState) => state.user.token, shallowEqual);
+  const authMenuList = useSelector((state: RootState) => state.auth.authMenuList, shallowEqual);
 
   useEffect(() => {
     // set document title
@@ -29,15 +31,11 @@ const RouterGuard: React.FC<RouterGuardProps> = (props: RouterGuardProps) => {
       document.title = meta?.title ? `${meta.title} - ${title}` : title;
     }
 
-    // If the page accessed by token && is login, redirect to the home page
-    if (token && pathname === LOGIN_URL) {
-      return navigate(HOME_URL);
-    }
+    // If there is menu data, token, or login on the access page, redirect to the home page
+    if (authMenuList.length && token && pathname === LOGIN_URL) return navigate(HOME_URL);
 
     // If there is no token && the accessed page is not login, redirect to the login page
-    if (!token && pathname !== LOGIN_URL) {
-      return navigate(LOGIN_URL, { replace: true });
-    }
+    if (!token && pathname !== LOGIN_URL) return navigate(LOGIN_URL, { replace: true });
   }, [matches]);
 
   return props.children;

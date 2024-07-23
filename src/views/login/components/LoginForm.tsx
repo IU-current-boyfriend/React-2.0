@@ -27,11 +27,18 @@ const LoginForm: React.FC = () => {
       const { data } = await loginApi({ ...values, password: md5(values.password) });
       dispatch(setToken(data.access_token));
 
-      // 2.request menu data
-      await dispatch(fetchMenuList());
-
       // clear tabs Data
       dispatch(setTabsList([]));
+
+      // 请求带有权限的菜单列表
+      try {
+        const payload = await dispatch(fetchMenuList()).unwrap();
+        // 不存在数据的话，直接返回
+        if (!payload.length) return;
+      } catch (error) {
+        dispatch(setToken(""));
+        return;
+      }
 
       notification.success({
         message: getTimeState(),
@@ -54,7 +61,7 @@ const LoginForm: React.FC = () => {
 
   useEffect(() => {
     document.onkeydown = e => {
-      if (e.code === "Enter" || e.code === "enter" || e.code === "NumpadEnter") {
+      if (e.code === "Enter") {
         e.preventDefault();
         formRef.current?.submit();
       }

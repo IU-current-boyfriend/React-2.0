@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { Spin } from "antd";
+import Loading from "@/components/Loading";
 
 /**
  * @description Routing lazy loading
@@ -7,15 +7,8 @@ import { Spin } from "antd";
  * @returns React.ReactNode
  */
 const LazyComponent = (Comp: React.LazyExoticComponent<React.ComponentType>) => {
-  const style = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    height: "100%"
-  };
-
   return (
-    <Suspense fallback={<Spin size="large" style={style} />}>
+    <Suspense fallback={<Loading />}>
       <Comp />
     </Suspense>
   );

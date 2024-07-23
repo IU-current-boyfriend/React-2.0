@@ -1,32 +1,26 @@
 import React from "react";
 import { Layout } from "antd";
-import { RootState, useSelector } from "@/redux";
-import ToolBarLeft from "@/layouts/components/Header/ToolBarLeft";
 import ToolBarRight from "@/layouts/components/Header/ToolBarRight";
 import LayoutMenu from "@/layouts/components//Menu";
 import LayoutMain from "@/layouts/components/Main";
 import logo from "@/assets/images/logo.svg";
 import "./index.less";
 
-const { Header, Sider } = Layout;
+const { Header } = Layout;
 
 const LayoutVertical: React.FC = () => {
-  const isCollapse = useSelector((state: RootState) => state.global.isCollapse);
-
+  let a = 1;
   return (
     <section className={`layout-transverse`}>
-      <Sider width={210} collapsed={isCollapse}>
+      <Header>
         <div className="logo">
           <img src={logo} alt="logo" className="logo-img" />
-          {!isCollapse && <h2 className="logo-text">Hooks Admin</h2>}
+          <h2 className="logo-text">Hooks Admin</h2>
         </div>
         <LayoutMenu />
-      </Sider>
+        <ToolBarRight />
+      </Header>
       <Layout>
-        <Header>
-          <ToolBarLeft />
-          <ToolBarRight />
-        </Header>
         <LayoutMain />
       </Layout>
     </section>

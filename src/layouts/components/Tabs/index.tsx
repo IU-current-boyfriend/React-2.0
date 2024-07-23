@@ -133,9 +133,9 @@ const LayoutTabs: React.FC = () => {
     flatMenuList.forEach(item => {
       if (item.meta?.isAffix && !item.meta.isHide && !item.meta.isFull) {
         const tabValue = {
-          icon: item.meta.icon as string,
-          title: item.meta.title as string,
-          path: item.path as string,
+          icon: item.meta.icon!,
+          title: item.meta.title!,
+          path: item.path!,
           closable: !item.meta.isAffix
         };
         dispatch(addTab(tabValue));
@@ -147,8 +147,8 @@ const LayoutTabs: React.FC = () => {
     const meta = matches[matches.length - 1].data as MetaProps;
     if (meta) {
       const tabValue = {
-        icon: meta.icon as string,
-        title: meta.title as string,
+        icon: meta.icon!,
+        title: meta.title!,
         path: fullPath,
         closable: !meta.isAffix
       };

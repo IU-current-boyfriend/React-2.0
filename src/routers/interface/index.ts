@@ -9,7 +9,7 @@ export interface MetaProps {
   isHide?: boolean;
   isFull?: boolean;
   isAffix?: boolean;
-  isKeepAlive?: boolean;
+  // isKeepAlive?: boolean;
 }
 
 export type RouteObjectType = Omit<RouteObject, "children"> & {

@@ -19,6 +19,8 @@ const tabsSlice = createSlice({
     },
     removeTab(state, { payload }: PayloadAction<{ path: string; isCurrent: boolean }>) {
       const tabsList = state.tabsList;
+      // 没有close图标的tab栏不可删除
+      if (!tabsList.find(item => item.path === payload.path)?.closable) return;
       if (payload.isCurrent) {
         tabsList.forEach((item, index) => {
           if (item.path !== payload.path) return;

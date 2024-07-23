@@ -54,6 +54,7 @@ const RouterProvider: React.FC = () => {
     }
   }, []);
 
+  // 这是根据menu设置权限菜单
   useEffect(() => {
     // The menu request has ended and there is no data available
     if (!authMenuList.length && !authMenuLoading && token) {

@@ -11,7 +11,7 @@ const LayoutMenu: React.FC = () => {
   const navigate = useNavigate();
   const matches = useMatches();
   const { pathname } = useLocation();
-
+  const layout = useSelector((state: RootState) => state.global.layout);
   const isDark = useSelector((state: RootState) => state.global.isDark);
   const isCollapse = useSelector((state: RootState) => state.global.isCollapse);
   const showMenuList = useSelector((state: RootState) => state.auth.showMenuList);
@@ -56,10 +56,12 @@ const LayoutMenu: React.FC = () => {
     const keys = meta?.activeMenu ?? pathname;
     setSelectedKeys([keys]);
     // Use setTimeout to prevent style exceptions from menu expansion
-    setTimeout(() => isCollapse || setOpenKeys(getOpenKeys(pathname)));
+    if (layout !== "transverse") {
+      setTimeout(() => isCollapse || setOpenKeys(getOpenKeys(pathname)));
+    }
   }, [matches, isCollapse]);
 
-  const onOpenChange = (openKeys: string[]) => {
+  const onOpenChange: MenuProps["onOpenChange"] = (openKeys: string[]) => {
     if (openKeys.length === 0 || openKeys.length === 1) return setOpenKeys(openKeys);
     const latestOpenKey = openKeys[openKeys.length - 1];
     if (latestOpenKey.includes(openKeys[0])) return setOpenKeys(openKeys);
@@ -75,7 +77,7 @@ const LayoutMenu: React.FC = () => {
   return (
     <Menu
       theme={isDark ? "dark" : "light"}
-      mode={"inline"}
+      mode={layout === "transverse" ? "horizontal" : "inline"}
       openKeys={openKeys}
       selectedKeys={selectedKeys}
       onOpenChange={onOpenChange}

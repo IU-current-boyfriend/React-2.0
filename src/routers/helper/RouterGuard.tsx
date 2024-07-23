@@ -12,6 +12,7 @@ interface RouterGuardProps {
   children: JSX.Element;
 }
 
+// 路由守卫
 const RouterGuard: React.FC<RouterGuardProps> = (props: RouterGuardProps) => {
   const matches = useMatches();
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const RouterGuard: React.FC<RouterGuardProps> = (props: RouterGuardProps) => {
     if (authMenuList.length && token && pathname === LOGIN_URL) return navigate(HOME_URL);
 
     // If there is no token && the accessed page is not login, redirect to the login page
-    if (!token && pathname !== LOGIN_URL) return navigate(LOGIN_URL, { replace: true });
+    if (!authMenuList.length && !token && pathname !== LOGIN_URL) return navigate(LOGIN_URL, { replace: true });
   }, [matches]);
 
   return props.children;

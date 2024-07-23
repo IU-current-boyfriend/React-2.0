@@ -4,7 +4,7 @@ import "./index.less";
 const Loading = () => {
   return (
     <div className="loading-box">
-      <Spin size="large" />;
+      <Spin size="large" />
     </div>
   );
 };

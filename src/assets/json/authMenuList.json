@@ -11,8 +11,7 @@
         "isLink": "",
         "isHide": false,
         "isFull": false,
-        "isAffix": true,
-        "isKeepAlive": true
+        "isAffix": true
       }
     },
     {
@@ -25,8 +24,7 @@
         "isLink": "",
         "isHide": false,
         "isFull": false,
-        "isAffix": false,
-        "isKeepAlive": true
+        "isAffix": false
       },
       "children": [
         {
@@ -39,8 +37,7 @@
             "isLink": "",
             "isHide": false,
             "isFull": false,
-            "isAffix": false,
-            "isKeepAlive": true
+            "isAffix": false
           },
           "children": [
             {
@@ -50,12 +47,11 @@
                 "key": "useProTableDetail",
                 "icon": "AppstoreOutlined",
                 "title": "ProTable 详情",
+                "activeMenu": "/proTable/useProTable",
                 "isLink": "",
                 "isHide": true,
                 "isFull": false,
-                "isAffix": false,
-                "isKeepAlive": true,
-                "activeMenu": "/proTable/useProTable"
+                "isAffix": false
               }
             }
           ]
@@ -70,8 +66,7 @@
             "isLink": "",
             "isHide": false,
             "isFull": false,
-            "isAffix": false,
-            "isKeepAlive": true
+            "isAffix": false
           }
         },
         {
@@ -85,8 +80,7 @@
             "isLink": "",
             "isHide": true,
             "isFull": false,
-            "isAffix": false,
-            "isKeepAlive": true
+            "isAffix": false
           }
         }
       ]
@@ -101,8 +95,7 @@
         "isLink": "",
         "isHide": false,
         "isFull": false,
-        "isAffix": false,
-        "isKeepAlive": true
+        "isAffix": false
       },
       "children": [
         {
@@ -115,8 +108,7 @@
             "isLink": "",
             "isHide": false,
             "isFull": false,
-            "isAffix": false,
-            "isKeepAlive": true
+            "isAffix": false
           }
         },
         {
@@ -129,8 +121,7 @@
             "isLink": "",
             "isHide": false,
             "isFull": false,
-            "isAffix": false,
-            "isKeepAlive": true
+            "isAffix": false
           }
         }
       ]
@@ -145,8 +136,7 @@
         "isLink": "",
         "isHide": false,
         "isFull": false,
-        "isAffix": false,
-        "isKeepAlive": true
+        "isAffix": false
       },
       "children": [
         {
@@ -159,8 +149,7 @@
             "isLink": "",
             "isHide": false,
             "isFull": false,
-            "isAffix": false,
-            "isKeepAlive": true
+            "isAffix": false
           }
         },
         {
@@ -173,8 +162,7 @@
             "isLink": "",
             "isHide": false,
             "isFull": false,
-            "isAffix": false,
-            "isKeepAlive": true
+            "isAffix": false
           },
           "children": [
             {
@@ -187,8 +175,7 @@
                 "isLink": "",
                 "isHide": false,
                 "isFull": false,
-                "isAffix": false,
-                "isKeepAlive": true
+                "isAffix": false
               }
             },
             {
@@ -201,8 +188,7 @@
                 "isLink": "",
                 "isHide": false,
                 "isFull": false,
-                "isAffix": false,
-                "isKeepAlive": true
+                "isAffix": false
               },
               "children": [
                 {
@@ -215,8 +201,7 @@
                     "isLink": "",
                     "isHide": false,
                     "isFull": false,
-                    "isAffix": false,
-                    "isKeepAlive": true
+                    "isAffix": false
                   }
                 },
                 {
@@ -229,8 +214,7 @@
                     "isLink": "",
                     "isHide": false,
                     "isFull": false,
-                    "isAffix": false,
-                    "isKeepAlive": true
+                    "isAffix": false
                   }
                 }
               ]
@@ -245,8 +229,7 @@
                 "isLink": "",
                 "isHide": false,
                 "isFull": false,
-                "isAffix": false,
-                "isKeepAlive": true
+                "isAffix": false
               }
             }
           ]
@@ -261,8 +244,7 @@
             "isLink": "",
             "isHide": false,
             "isFull": false,
-            "isAffix": false,
-            "isKeepAlive": true
+            "isAffix": false
           }
         }
       ]
@@ -277,8 +259,7 @@
         "isLink": "",
         "isHide": false,
         "isFull": false,
-        "isAffix": false,
-        "isKeepAlive": true
+        "isAffix": false
       },
       "children": [
         {
@@ -291,8 +272,7 @@
             "isLink": "",
             "isHide": false,
             "isFull": false,
-            "isAffix": false,
-            "isKeepAlive": true
+            "isAffix": false
           }
         },
         {
@@ -305,8 +285,7 @@
             "isLink": "",
             "isHide": false,
             "isFull": false,
-            "isAffix": false,
-            "isKeepAlive": true
+            "isAffix": false
           }
         },
         {
@@ -319,8 +298,7 @@
             "isLink": "",
             "isHide": false,
             "isFull": false,
-            "isAffix": false,
-            "isKeepAlive": true
+            "isAffix": false
           }
         },
         {
@@ -333,8 +311,7 @@
             "isLink": "",
             "isHide": false,
             "isFull": false,
-            "isAffix": false,
-            "isKeepAlive": true
+            "isAffix": false
           }
         },
         {
@@ -347,8 +324,7 @@
             "isLink": "",
             "isHide": false,
             "isFull": false,
-            "isAffix": false,
-            "isKeepAlive": true
+            "isAffix": false
           }
         },
         {
@@ -361,8 +337,7 @@
             "isLink": "",
             "isHide": false,
             "isFull": false,
-            "isAffix": false,
-            "isKeepAlive": true
+            "isAffix": false
           }
         },
         {
@@ -375,8 +350,7 @@
             "isLink": "",
             "isHide": false,
             "isFull": false,
-            "isAffix": false,
-            "isKeepAlive": true
+            "isAffix": false
           }
         }
       ]
@@ -391,8 +365,7 @@
         "isLink": "",
         "isHide": false,
         "isFull": false,
-        "isAffix": false,
-        "isKeepAlive": true
+        "isAffix": false
       },
       "children": [
         {
@@ -405,8 +378,7 @@
             "isLink": "https://gitee.com/HalseySpicy/Geeker-Admin",
             "isHide": false,
             "isFull": false,
-            "isAffix": false,
-            "isKeepAlive": true
+            "isAffix": false
           }
         },
         {
@@ -419,8 +391,7 @@
             "isLink": "https://github.com/HalseySpicy/Geeker-Admin",
             "isHide": false,
             "isFull": false,
-            "isAffix": false,
-            "isKeepAlive": true
+            "isAffix": false
           }
         }
       ]
@@ -435,8 +406,7 @@
         "isLink": "",
         "isHide": false,
         "isFull": false,
-        "isAffix": false,
-        "isKeepAlive": true
+        "isAffix": false
       }
     }
   ],

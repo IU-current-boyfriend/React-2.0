@@ -77,37 +77,46 @@
 /* search menu */
 .search-modal {
   .menu-list {
-    display: flex;
-    flex-direction: column;
-    padding-top: 15px;
+    max-height: 510px;
+    margin-top: 15px;
+    overflow: auto;
     .menu-item {
+      position: relative;
       display: flex;
       align-items: center;
       height: 46px;
       padding: 0 20px;
-      margin: 7px 0;
+      margin: 10px 0;
       color: var(--hooks-colorTextSecondary);
       cursor: pointer;
+      background-color: transparent;
       border: 1px solid var(--hooks-colorBorder);
       border-radius: calc(var(--hooks-colorRadius) * 1px);
-      transition: all 0.1s ease;
+      transition: all 0.2s ease;
       .menu-icon {
-        margin-right: 6px;
+        margin-right: 8px;
         font-size: 16px;
-        transition: all 0.1s ease;
       }
       .menu-title {
-        transition: all 0.1s ease;
+        font-size: 14px;
       }
-      &:hover {
-        color: #ffffff;
-        background-color: var(--hooks-colorPrimary);
-        .menu-icon {
-          font-size: 18px;
-        }
-        .menu-title {
-          font-size: 16px;
-        }
+      .menu-enter {
+        position: absolute;
+        right: 20px;
+        font-size: 16px;
+      }
+    }
+    .menu-active {
+      color: #ffffff;
+      background-color: var(--hooks-colorPrimary);
+      .menu-icon {
+        font-size: 18px;
+      }
+      .menu-title {
+        font-size: 16px;
+      }
+      .menu-enter {
+        font-size: 20px;
       }
     }
   }

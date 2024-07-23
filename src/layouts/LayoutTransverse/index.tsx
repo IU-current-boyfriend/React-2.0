@@ -9,7 +9,6 @@ import "./index.less";
 const { Header } = Layout;
 
 const LayoutVertical: React.FC = () => {
-  let a = 1;
   return (
     <section className={`layout-transverse`}>
       <Header>

@@ -4,11 +4,12 @@ import React from "react";
 
 interface IconProps {
   name: string;
+  className?: string;
 }
 
-export const Icon: React.FC<IconProps> = ({ name }) => {
+export const Icon: React.FC<IconProps> = ({ name, className }) => {
   const customIcons: { [key: string]: any } = Icons;
-  return React.createElement(customIcons[name]);
+  return React.createElement(customIcons[name], { className });
 };
 
 export const IconFont = createFromIconfontCN({

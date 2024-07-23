@@ -26,9 +26,7 @@ const MoreButton: React.FC<MoreButtonProps> = ({ path }) => {
 
   const refreshCurrentPage = () => {
     updateOutletShow(false);
-    setTimeout(() => {
-      updateOutletShow(true);
-    }, 0);
+    setTimeout(() => updateOutletShow(true));
   };
 
   const items: MenuProps["items"] = [

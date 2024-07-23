@@ -4,6 +4,7 @@ import { HOME_URL } from "@/config";
 import { getTimeState } from "@/utils";
 import { useDispatch } from "@/redux";
 import { setToken } from "@/redux/modules/user";
+import { setTabsList } from "@/redux/modules/tabs";
 import { fetchMenuList } from "@/redux/modules/auth";
 import { notification } from "@/hooks/useMessage";
 import { Button, Form, Input } from "antd";
@@ -28,6 +29,9 @@ const LoginForm: React.FC = () => {
 
       // 2.request menu data
       await dispatch(fetchMenuList());
+
+      // clear tabs Data
+      dispatch(setTabsList([]));
 
       notification.success({
         message: getTimeState(),

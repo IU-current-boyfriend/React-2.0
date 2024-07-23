@@ -11,7 +11,7 @@ interface RouterGuardProps {
   children: JSX.Element;
 }
 
-const RouterGuard = (props: RouterGuardProps) => {
+const RouterGuard: React.FC<RouterGuardProps> = (props: RouterGuardProps) => {
   const matches = useMatches();
   const navigate = useNavigate();
   const { pathname } = useLocation();

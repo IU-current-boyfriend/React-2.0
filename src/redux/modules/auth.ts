@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AuthState } from "@/redux/interface";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getAuthMenuListApi } from "@/api/modules/login";
+import { getAuthMenuListApi, getAuthButtonListApi } from "@/api/modules/login";
 import { getFlatMenuList, getShowMenuList } from "@/utils";
 import { RouteObjectType } from "@/routers/interface";
 
@@ -27,11 +27,20 @@ export const fetchMenuList = createAsyncThunk("hooks-auth/fetchMenuList", async 
   }
 });
 
+export const fecthButtonList = createAsyncThunk("hooks-auth/fetchButtonList", async (_authState, { rejectWithValue }) => {
+  try {
+    const { data } = await getAuthButtonListApi();
+    return data;
+  } catch (error) {
+    return rejectWithValue(error);
+  }
+});
+
 const authSlice = createSlice({
   name: "hooks-auth",
   initialState: authState,
   reducers: {
-    setAuthMenuList(state, { payload }: PayloadAction<RouteObjectType[]>) {
+    setAuthMenuList(state, { payload }: PayloadAction<AuthState["authMenuList"]>) {
       state.authMenuList = payload;
     }
   },
@@ -41,6 +50,9 @@ const authSlice = createSlice({
       state.flatMenuList = getFlatMenuList(payload);
       state.showMenuList = getShowMenuList(payload);
       state.authMenuLoading = false;
+    });
+    builder.addCase(fecthButtonList.fulfilled, (state, { payload }: PayloadAction<AuthState["authButtonList"]>) => {
+      state.authButtonList = payload;
     });
   }
 });

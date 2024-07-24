@@ -56,9 +56,7 @@ const LayoutMenu: React.FC = () => {
     const keys = meta?.activeMenu ?? pathname;
     setSelectedKeys([keys]);
     // Use setTimeout to prevent style exceptions from menu expansion
-    if (layout !== "transverse") {
-      setTimeout(() => isCollapse || setOpenKeys(getOpenKeys(pathname)));
-    }
+    setTimeout(() => isCollapse || setOpenKeys(getOpenKeys(pathname)));
   }, [matches, isCollapse]);
 
   const onOpenChange: MenuProps["onOpenChange"] = (openKeys: string[]) => {
@@ -78,11 +76,10 @@ const LayoutMenu: React.FC = () => {
     <Menu
       theme={isDark ? "dark" : "light"}
       mode={layout === "transverse" ? "horizontal" : "inline"}
-      openKeys={openKeys}
       selectedKeys={selectedKeys}
-      onOpenChange={onOpenChange}
       onClick={clickMenu}
       items={menuList}
+      {...(layout !== "transverse" ? { openKeys, onOpenChange } : {})}
     />
   );
 };

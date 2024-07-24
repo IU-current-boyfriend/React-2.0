@@ -10,7 +10,7 @@ import "./index.less";
 
 const { Header, Sider } = Layout;
 
-const LayoutVertical: React.FC = () => {
+const LayoutColumns: React.FC = () => {
   const isCollapse = useSelector((state: RootState) => state.global.isCollapse);
 
   return (
@@ -33,4 +33,4 @@ const LayoutVertical: React.FC = () => {
   );
 };
 
-export default LayoutVertical;
+export default LayoutColumns;

@@ -20,7 +20,7 @@ const LayoutVertical: React.FC = () => {
           <img src={logo} alt="logo" className="logo-img" />
           {!isCollapse && <h2 className="logo-text">Hooks Admin</h2>}
         </div>
-        <LayoutMenu />
+        <LayoutMenu mode="inline" />
       </Sider>
       <Layout>
         <Header>

@@ -7,7 +7,12 @@ import { Icon } from "@/components/Icon";
 import { Menu, MenuProps } from "antd";
 import { getOpenKeys } from "@/utils";
 
-const LayoutMenu: React.FC = () => {
+interface LayoutMenuProps {
+  mode: MenuProps["mode"];
+  menuData?: RouteObjectType[];
+}
+
+const LayoutMenu: React.FC<LayoutMenuProps> = ({ mode, menuData }) => {
   const navigate = useNavigate();
   const matches = useMatches();
   const { pathname } = useLocation();
@@ -40,11 +45,11 @@ const LayoutMenu: React.FC = () => {
   }
 
   useEffect(() => {
-    setMenuList(handleMenuAsAntdFormat(showMenuList));
-  }, []);
+    setMenuList(handleMenuAsAntdFormat(menuData ?? showMenuList));
+  }, [menuData]);
 
-  const handleMenuAsAntdFormat = (menuList: RouteObjectType[], newArr: MenuItem[] = []) => {
-    menuList.forEach(item => {
+  const handleMenuAsAntdFormat = (list: RouteObjectType[], newArr: MenuItem[] = []) => {
+    list.forEach(item => {
       if (!item?.children?.length) return newArr.push(getItem(item.meta?.title, item.path, <Icon name={item.meta!.icon!} />));
       newArr.push(getItem(item.meta?.title, item.path, <Icon name={item.meta!.icon!} />, handleMenuAsAntdFormat(item.children)));
     });
@@ -75,10 +80,11 @@ const LayoutMenu: React.FC = () => {
   return (
     <Menu
       theme={isDark ? "dark" : "light"}
-      mode={layout === "transverse" ? "horizontal" : "inline"}
+      mode={mode}
       selectedKeys={selectedKeys}
       onClick={clickMenu}
       items={menuList}
+      /* 因为transverse模式时的sider不需要这些打开菜单的事件处理函数 */
       {...(layout !== "transverse" ? { openKeys, onOpenChange } : {})}
     />
   );

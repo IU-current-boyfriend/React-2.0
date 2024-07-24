@@ -16,7 +16,7 @@ const LayoutVertical: React.FC = () => {
           <img src={logo} alt="logo" className="logo-img" />
           <h2 className="logo-text">Hooks Admin</h2>
         </div>
-        <LayoutMenu />
+        <LayoutMenu mode="horizontal" />
         <ToolBarRight />
       </Header>
       <Layout>

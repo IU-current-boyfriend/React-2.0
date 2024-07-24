@@ -1,7 +1,7 @@
 import { Drawer, Divider, Switch, Popover, InputNumber, Tooltip } from "antd";
 import { setGlobalState } from "@/redux/modules/global";
 import { RootState, useDispatch, useSelector } from "@/redux";
-import { LayoutOutlined, FireOutlined, SettingOutlined, CheckCircleFilled } from "@ant-design/icons";
+import { LayoutOutlined, FireOutlined, SettingOutlined, CheckCircleFilled, QuestionCircleOutlined } from "@ant-design/icons";
 import ColorPicker from "./components/ColorPicker";
 import { shallowEqual } from "react-redux";
 import "./index.less";
@@ -15,6 +15,9 @@ const ThemeDrawer: React.FC = () => {
     isDark,
     isGrey,
     isWeak,
+    menuSplit,
+    siderInverted,
+    headerInverted,
     isCollapse,
     breadcrumb,
     breadcrumbIcon,
@@ -30,6 +33,9 @@ const ThemeDrawer: React.FC = () => {
       isDark: state.global.isDark,
       isGrey: state.global.isGrey,
       isWeak: state.global.isWeak,
+      menuSplit: state.global.menuSplit,
+      siderInverted: state.global.siderInverted,
+      headerInverted: state.global.headerInverted,
       isCollapse: state.global.isCollapse,
       breadcrumb: state.global.breadcrumb,
       breadcrumbIcon: state.global.breadcrumbIcon,
@@ -54,12 +60,12 @@ const ThemeDrawer: React.FC = () => {
       {/* layout switching */}
       <Divider className="divider">
         <LayoutOutlined />
-        布局切换
+        布局样式
       </Divider>
-      <div className="layout-box mb28">
+      <div className="layout-box">
         <Tooltip placement="top" title="纵向" arrow={true} mouseEnterDelay={0.2}>
           <div
-            className={`layout-item mb20 layout-vertical ${layout === "vertical" ? "layout-active" : ""}`}
+            className={`layout-item mb22 layout-vertical ${layout === "vertical" && "layout-active"}`}
             onClick={() => dispatch(setGlobalState({ key: "layout", value: "vertical" }))}
           >
             <div className="layout-dark"></div>
@@ -72,7 +78,7 @@ const ThemeDrawer: React.FC = () => {
         </Tooltip>
         <Tooltip placement="top" title="经典" arrow={true} mouseEnterDelay={0.2}>
           <div
-            className={`layout-item mb20 layout-classic ${layout === "classic" ? "layout-active" : ""}`}
+            className={`layout-item mb22 layout-classic ${layout === "classic" && "layout-active"}`}
             onClick={() => dispatch(setGlobalState({ key: "layout", value: "classic" }))}
           >
             <div className="layout-dark"></div>
@@ -85,7 +91,7 @@ const ThemeDrawer: React.FC = () => {
         </Tooltip>
         <Tooltip placement="top" title="横向" arrow={true} mouseEnterDelay={0.2}>
           <div
-            className={`layout-item mb10 layout-transverse ${layout === "transverse" ? "layout-active" : ""}`}
+            className={`layout-item layout-transverse ${layout === "transverse" && "layout-active"}`}
             onClick={() => dispatch(setGlobalState({ key: "layout", value: "transverse" }))}
           >
             <div className="layout-dark"></div>
@@ -95,7 +101,7 @@ const ThemeDrawer: React.FC = () => {
         </Tooltip>
         <Tooltip placement="top" title="分栏" arrow={true} mouseEnterDelay={0.2}>
           <div
-            className={`layout-item mb10 layout-columns ${layout === "columns" ? "layout-active" : ""}`}
+            className={`layout-item layout-columns ${layout === "columns" && "layout-active"}`}
             onClick={() => dispatch(setGlobalState({ key: "layout", value: "columns" }))}
           >
             <div className="layout-dark"></div>
@@ -104,6 +110,39 @@ const ThemeDrawer: React.FC = () => {
             {layout === "columns" && <CheckCircleFilled />}
           </div>
         </Tooltip>
+      </div>
+
+      {/* layout setting */}
+      <div className="theme-item">
+        <span>
+          菜单分割
+          <Tooltip title="经典模式下生效">
+            <QuestionCircleOutlined />
+          </Tooltip>
+        </span>
+        <Switch
+          disabled={layout !== "classic"}
+          checked={menuSplit}
+          onChange={value => dispatch(setGlobalState({ key: "menuSplit", value }))}
+        ></Switch>
+      </div>
+      <div className="theme-item">
+        <span>
+          侧边栏反转色
+          <Tooltip title="侧边栏颜色变为深色模式">
+            <QuestionCircleOutlined />
+          </Tooltip>
+        </span>
+        <Switch checked={siderInverted} onChange={value => dispatch(setGlobalState({ key: "siderInverted", value }))}></Switch>
+      </div>
+      <div className="theme-item mb35">
+        <span>
+          头部反转色
+          <Tooltip title="头部颜色变为深色模式">
+            <QuestionCircleOutlined />
+          </Tooltip>
+        </span>
+        <Switch checked={headerInverted} onChange={value => dispatch(setGlobalState({ key: "headerInverted", value }))}></Switch>
       </div>
 
       {/* theme settings */}

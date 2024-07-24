@@ -95,3 +95,16 @@ export const getOpenKeys = (path: string): string[] => {
   }
   return openKeys;
 };
+
+/**
+ * 获取一级菜单
+ * @param menu
+ */
+export const getFirstLevelMenu = (menuList: RouteObjectType[]): RouteObjectType[] => {
+  return menuList.map(item => {
+    return {
+      ...item,
+      children: undefined
+    };
+  });
+};

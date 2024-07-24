@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Layout } from "antd";
 import { RootState, useSelector } from "@/redux";
 import { Icon } from "@/components/Icon";
@@ -27,29 +27,32 @@ const LayoutColumns: React.FC = () => {
     if (!showMenuList.length) return;
     setMenuActive(pathname);
 
-    const menuItem = showMenuList.filter(item => {
+    const menuItem = showMenuList.find(item => {
       return pathname === item.path || `/${pathname.split("/")[1]}` === item.path;
     });
-    // 处理多级菜单的情况
-    if (menuItem[0].children?.length) return setSubMenuList(menuItem[0].children);
-
-    setSubMenuList([]);
+    setMenuActive(pathname);
+    setSubMenuList(menuItem?.children || []);
   }, [pathname]);
+
+  const handleNavigation = useCallback((item: RouteObjectType) => {
+    // 外部链接的特殊情况
+    if (item.meta?.isLink) window.open(item.meta.isLink, "_blank");
+    navigate(item.path!);
+  }, []);
 
   const changeSubMenu = (item: RouteObjectType) => {
     setMenuActive(item.path!);
-    if (item.children?.length) return setSubMenuList(item.children);
-    setSubMenuList([]);
-    navigate(item.path!);
+    setSubMenuList(item.children || []);
+    handleNavigation(item.children?.length ? item.children[0] : item);
   };
 
   return (
-    <section className={`layout-columns`}>
+    <section className="layout-columns">
       <div className="sider-split">
         <div className="logo">
           <img src={logo} alt="logo" className="logo-img" />
         </div>
-        <div className="split-menu">
+        <div className="menu-list">
           {showMenuList.map(item => {
             return (
               <div
@@ -68,12 +71,12 @@ const LayoutColumns: React.FC = () => {
       </div>
       <Sider width={210} collapsed={isCollapse} className={`${!subMenuList.length && "not-sider"}`}>
         {subMenuList.length ? (
-          <React.Fragment>
+          <>
             <div className="logo">
               <span className="logo-text">{isCollapse ? "H" : "Hooks Admin"}</span>
             </div>
             <LayoutMenu mode="inline" menuData={subMenuList}></LayoutMenu>
-          </React.Fragment>
+          </>
         ) : null}
       </Sider>
       <Layout>

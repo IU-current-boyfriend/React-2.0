@@ -10,7 +10,7 @@ const { Header } = Layout;
 
 const LayoutVertical: React.FC = () => {
   return (
-    <section className={`layout-transverse`}>
+    <section className="layout-transverse">
       <Header>
         <div className="logo">
           <img src={logo} alt="logo" className="logo-img" />

@@ -23,6 +23,12 @@ const globalState: GlobalState = {
   isGrey: false,
   // weakness mode
   isWeak: false,
+  // menu splitting
+  menuSplit: false,
+  // siderbar Invert Color
+  siderInverted: false,
+  // head Inverted Color
+  headerInverted: false,
   // collapse menu
   isCollapse: false,
   // breadcrumb

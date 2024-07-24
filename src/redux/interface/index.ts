@@ -17,6 +17,9 @@ export interface GlobalState {
   isDark: boolean;
   isGrey: boolean;
   isWeak: boolean;
+  menuSplit: boolean;
+  siderInverted: boolean;
+  headerInverted: boolean;
   isCollapse: boolean;
   breadcrumb: boolean;
   breadcrumbIcon: boolean;

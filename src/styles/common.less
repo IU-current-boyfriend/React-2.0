@@ -23,8 +23,10 @@ body,
   .ant-layout-sider,
   .ant-layout-header,
   .ant-layout-footer,
-  .ant-tabs {
+  .ant-tabs,
+  .sider-split {
     display: none !important;
+    transition: all 0s; /* 目前没有看出来有什么用 */
   }
 }
 
@@ -95,3 +97,11 @@ body,
   .mt-loop(@i + 1);
 }
 .mt-loop();
+
+/* mask image */
+.mask-image {
+  padding-right: 50px;
+
+  /* mask image遮罩层的图片 目前没有看到效果 */
+  mask-image: linear-gradient(90deg, #000000 0%, #000000 calc(100% - 50px), transparent);
+}

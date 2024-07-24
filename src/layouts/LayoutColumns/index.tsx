@@ -75,7 +75,7 @@ const LayoutColumns: React.FC = () => {
             <div className="logo">
               <span className="logo-text">{isCollapse ? "H" : "Hooks Admin"}</span>
             </div>
-            <LayoutMenu mode="inline" menuData={subMenuList}></LayoutMenu>
+            <LayoutMenu mode="inline" menuList={subMenuList}></LayoutMenu>
           </>
         ) : null}
       </Sider>

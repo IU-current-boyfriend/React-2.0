@@ -3,10 +3,7 @@
   flex-direction: column;
   height: 100%;
   .ant-layout-header {
-    box-sizing: content-box;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
     height: 55px;
     padding: 0 40px 0 11px;
     line-height: 55px;
@@ -75,7 +72,7 @@
   }
   .classic-content {
     display: flex;
-    flex: 1;
+    height: calc(100% - 55px);
     .not-sider {
       width: 0 !important;
       min-width: 0 !important;
@@ -94,6 +91,21 @@
           overflow-y: auto;
           background-color: var(--hooks-colorBgContainer);
           border-right: none;
+        }
+        .collapse-box {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 45px;
+          border-top: 1px solid var(--hooks-colorBorderSecondary);
+          .collapsed {
+            font-size: 17px;
+            cursor: pointer;
+            transition: color 0.3s;
+            &:hover {
+              color: var(--hooks-colorPrimaryText);
+            }
+          }
         }
       }
     }

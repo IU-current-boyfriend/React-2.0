@@ -100,7 +100,7 @@ export const getOpenKeys = (path: string): string[] => {
  * 获取一级菜单
  * @param menu
  */
-export const getFirstLevelMenu = (menuList: RouteObjectType[]): RouteObjectType[] => {
+export const getFirstLevelMenuList = (menuList: RouteObjectType[]): RouteObjectType[] => {
   return menuList.map(item => {
     return {
       ...item,

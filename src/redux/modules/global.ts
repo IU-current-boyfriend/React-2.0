@@ -24,7 +24,7 @@ const globalState: GlobalState = {
   // weakness mode
   isWeak: false,
   // menu splitting
-  menuSplit: false,
+  menuSplit: true,
   // siderbar Invert Color
   siderInverted: false,
   // head Inverted Color

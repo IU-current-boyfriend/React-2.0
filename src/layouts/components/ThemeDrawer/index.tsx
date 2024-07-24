@@ -113,7 +113,7 @@ const ThemeDrawer: React.FC = () => {
       </div>
 
       {/* layout setting */}
-      <div className="theme-item">
+      <div className="theme-item mt30">
         <span>
           菜单分割
           <Tooltip title="经典模式下生效">

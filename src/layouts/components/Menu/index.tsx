@@ -9,11 +9,11 @@ import { getOpenKeys } from "@/utils";
 
 interface LayoutMenuProps {
   mode: MenuProps["mode"];
-  menuData?: RouteObjectType[];
+  menuList?: RouteObjectType[];
   menuSplit?: boolean;
 }
 
-const LayoutMenu: React.FC<LayoutMenuProps> = ({ mode, menuData, menuSplit }) => {
+const LayoutMenu: React.FC<LayoutMenuProps> = ({ mode, menuList, menuSplit }) => {
   const navigate = useNavigate();
   const matches = useMatches();
   const { pathname } = useLocation();
@@ -53,7 +53,7 @@ const LayoutMenu: React.FC<LayoutMenuProps> = ({ mode, menuData, menuSplit }) =>
     });
   };
 
-  const menuList = useMemo(() => handleMenuAsAntdFormat(menuData ?? showMenuList), [menuData, showMenuList]);
+  const antdMenuList = useMemo(() => handleMenuAsAntdFormat(menuList ?? showMenuList), [menuList, showMenuList]);
 
   useEffect(() => {
     const meta = matches[matches.length - 1].data as MetaProps;
@@ -100,7 +100,7 @@ const LayoutMenu: React.FC<LayoutMenuProps> = ({ mode, menuData, menuSplit }) =>
       mode={mode}
       selectedKeys={menuSplit ? splitSelectedKeys : selectedKeys}
       onClick={clickMenu}
-      items={menuList}
+      items={antdMenuList}
       /* 因为transverse模式时的sider不需要这些打开菜单的事件处理函数 */
       {...(layout !== "transverse" && { openKeys, onOpenChange })}
     />

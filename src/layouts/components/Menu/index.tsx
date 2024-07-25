@@ -6,6 +6,7 @@ import { RootState, useSelector } from "@/redux";
 import { Icon } from "@/components/Icon";
 import { Menu, MenuProps } from "antd";
 import { getOpenKeys } from "@/utils";
+import "./index.less";
 
 interface LayoutMenuProps {
   mode: MenuProps["mode"];
@@ -22,6 +23,8 @@ const LayoutMenu: React.FC<LayoutMenuProps> = ({ mode, menuList, menuSplit }) =>
   const isCollapse = useSelector((state: RootState) => state.global.isCollapse);
   const showMenuList = useSelector((state: RootState) => state.auth.showMenuList);
   const flatMenuList = useSelector((state: RootState) => state.auth.flatMenuList);
+  const siderInverted = useSelector((state: RootState) => state.global.siderInverted);
+  const headerInverted = useSelector((state: RootState) => state.global.headerInverted);
 
   const [openKeys, setOpenKeys] = useState<string[]>([]);
   const [selectedKeys, setSelectedKeys] = useState<string[]>([pathname]);
@@ -57,13 +60,13 @@ const LayoutMenu: React.FC<LayoutMenuProps> = ({ mode, menuList, menuSplit }) =>
 
   useEffect(() => {
     const meta = matches[matches.length - 1].data as MetaProps;
-    const keys = meta?.activeMenu ?? pathname;
+    const path = meta?.activeMenu ?? pathname;
 
     // Set Selected Keys
-    setSelectedKeys([keys]);
+    setSelectedKeys([path]);
 
     // Set Split Selected Keys (find can be found to represent children)
-    const splitKeys = showMenuList.find(item => item.path === `/${keys.split("/")[1]}`) ? `/${keys.split("/")[1]}` : keys;
+    const splitKeys = showMenuList.find(item => item.path === `/${path.split("/")[1]}`) ? `/${path.split("/")[1]}` : path;
 
     setSplitSelectedKeys([splitKeys]);
 
@@ -94,15 +97,26 @@ const LayoutMenu: React.FC<LayoutMenuProps> = ({ mode, menuList, menuSplit }) =>
     handleMenuNavigation(key);
   };
 
+  const isClassicLayout = useMemo(() => layout === "classic", [layout]);
+  const isTransverseLayout = useMemo(() => layout === "transverse", [layout]);
+
+  const isDarkTheme = useMemo(() => {
+    if (isDark) return true;
+    if (headerInverted && isTransverseLayout) return true;
+    if (headerInverted && isClassicLayout && menuSplit) return true;
+    if (siderInverted && !isTransverseLayout && !menuSplit) return true;
+    return false;
+  }, [layout, isDark, headerInverted, siderInverted, menuSplit]);
+
   return (
     <Menu
-      theme={isDark ? "dark" : "light"}
+      theme={isDarkTheme ? "dark" : "light"}
       mode={mode}
       selectedKeys={menuSplit ? splitSelectedKeys : selectedKeys}
       onClick={clickMenu}
       items={antdMenuList}
       /* 因为transverse模式时的sider不需要这些打开菜单的事件处理函数 */
-      {...(layout !== "transverse" && { openKeys, onOpenChange })}
+      {...(!isTransverseLayout && { openKeys, onOpenChange })}
     />
   );
 };

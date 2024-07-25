@@ -17,8 +17,7 @@ import { setToken } from "@/redux/modules/user";
  */
 const RouterProvider: React.FC = () => {
   // initTheme && useMessage
-  const { initTheme } = useTheme();
-  initTheme();
+  useTheme();
   useMessage();
   const dispatch = useDispatch();
   const token = useSelector((state: RootState) => state.user.token, shallowEqual);

@@ -7,8 +7,8 @@
     height: 55px;
     padding: 0 40px 0 11px;
     line-height: 55px;
-    background-color: var(--hooks-colorBgContainer);
-    border-bottom: 1px solid var(--hooks-colorBorderSecondary);
+    background-color: var(--hooks-colorBgHeader);
+    border-bottom: 1px solid var(--hooks-colorBorderHeader);
     .header-lf {
       display: flex;
       flex: 1;
@@ -25,10 +25,10 @@
           height: 30px;
         }
         .logo-text {
-          margin: -2px 0 0 6px;
+          margin: 0 0 0 6px;
           font-size: 23.5px;
           font-weight: bold;
-          color: var(--hooks-colorText);
+          color: var(--hooks-colorTextHeader);
           white-space: nowrap;
         }
       }
@@ -38,7 +38,7 @@
       flex: 1;
       align-items: center;
       overflow: hidden;
-      background-color: var(--hooks-colorBgContainer);
+      background-color: var(--hooks-colorBgHeader);
       border-bottom: none;
       > *::after {
         display: none;
@@ -79,6 +79,7 @@
       max-width: 0 !important;
     }
     .ant-layout-sider {
+      background-color: var(--hooks-colorBgSider);
       transition: all 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
       .ant-layout-sider-children {
         display: flex;
@@ -89,7 +90,7 @@
           flex: 1;
           width: 100%;
           overflow-y: auto;
-          background-color: var(--hooks-colorBgContainer);
+          background-color: var(--hooks-colorBgSider);
           border-right: none;
         }
         .collapse-box {
@@ -97,9 +98,10 @@
           align-items: center;
           justify-content: center;
           height: 45px;
-          border-top: 1px solid var(--hooks-colorBorderSecondary);
+          border-top: 1px solid var(--hooks-colorBorderSider);
           .collapsed {
-            font-size: 17px;
+            font-size: calc((var(--hooks-fontSizeLG) + 2) * 1px);
+            color: var(--hooks-colorTextSider);
             cursor: pointer;
             transition: color 0.3s;
             &:hover {
@@ -131,9 +133,4 @@
     background-color: var(--hooks-colorBgContainer);
     border-bottom: 1px solid var(--hooks-colorBorderSecondary);
   }
-}
-
-/* ant-menu-sub */
-.ant-menu-sub {
-  background: var(--hooks-colorBgMenu) !important;
 }

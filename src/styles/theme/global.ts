@@ -1,8 +1,7 @@
-const themeConfig: { [key: string]: any } = {
+const globalTheme = {
   light: {
     // Customize global CSS variables
     "--hooks-colorBgContent": "#f5f5f5",
-    "--hooks-colorBgMenu": "#fafafa",
     "--hooks-colorLogoText": "#475768",
 
     // Customize login CSS variables
@@ -13,7 +12,6 @@ const themeConfig: { [key: string]: any } = {
   dark: {
     // Customize global CSS variables
     "--hooks-colorBgContent": "#0d0d0d",
-    "--hooks-colorBgMenu": "#191919",
     "--hooks-colorLogoText": "#f1f1f1",
 
     // Customize login CSS variables
@@ -23,4 +21,4 @@ const themeConfig: { [key: string]: any } = {
   }
 };
 
-export default themeConfig;
+export default globalTheme;

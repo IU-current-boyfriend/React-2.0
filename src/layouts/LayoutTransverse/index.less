@@ -7,8 +7,8 @@
     height: 55px;
     padding: 0 40px 0 11px;
     line-height: 55px;
-    background-color: var(--hooks-colorBgContainer);
-    border-bottom: 1px solid var(--hooks-colorBorderSecondary);
+    background-color: var(--hooks-colorBgHeader);
+    border-bottom: 1px solid var(--hooks-colorBorderHeader);
     .logo {
       display: flex;
       flex-shrink: 0;
@@ -21,10 +21,11 @@
         height: 30px;
       }
       .logo-text {
-        margin: -2px 0 0 6px;
+        margin: 0 0 0 6px;
         font-size: 23.5px;
         font-weight: bold;
-        color: var(--hooks-colorText);
+        line-height: 23.5px;
+        color: var(--hooks-colorTextHeader);
         white-space: nowrap;
       }
     }
@@ -35,7 +36,7 @@
     flex: 1;
     align-items: center;
     overflow: hidden;
-    background-color: var(--hooks-colorBgContainer);
+    background-color: var(--hooks-colorBgHeader);
     border-bottom: none;
     > *::after {
       display: none;

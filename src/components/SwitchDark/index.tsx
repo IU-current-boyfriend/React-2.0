@@ -12,7 +12,7 @@ const SwitchDark: React.FC = () => {
       type="text"
       size="large"
       className="switch-dark"
-      icon={<IconFont style={{ fontSize: 22 }} type={isDark ? "icon-sun" : "icon-moon1"} />}
+      icon={<IconFont style={{ fontSize: 22 }} type={isDark ? "icon-sun" : "icon-moon"} />}
       onClick={() => dispatch(setGlobalState({ key: "isDark", value: !isDark }))}
     ></Button>
   );

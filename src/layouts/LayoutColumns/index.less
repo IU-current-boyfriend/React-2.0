@@ -13,10 +13,10 @@
       height: 34px;
     }
     .logo-text {
-      margin: 0 0 0 6px;
       font-size: 26px;
       font-weight: bold;
-      color: var(--hooks-colorText);
+      line-height: 26px;
+      color: var(--hooks-colorTextSider);
       letter-spacing: 0.5px;
       white-space: nowrap;
     }
@@ -27,7 +27,8 @@
     flex-shrink: 0;
     width: 70px;
     height: 100%;
-    border-right: 1px solid var(--hooks-colorBorderSecondary);
+    background-color: var(--hooks-colorBgSider);
+    border-right: 1px solid var(--hooks-colorBorderSider);
     .menu-list {
       flex: 1;
       overflow: auto;
@@ -41,7 +42,7 @@
         align-items: center;
         justify-content: center;
         margin: 5px 6px 10px;
-        color: var(--hooks-colorText);
+        color: var(--hooks-colorTextSiderSecondary);
         cursor: pointer;
         border-radius: calc(var(--hooks-borderRadius) * 1px);
         transition: all 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
@@ -70,17 +71,18 @@
     max-width: 0 !important;
   }
   .ant-layout-sider {
+    background-color: var(--hooks-colorBgSider);
     transition: all 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
     .ant-layout-sider-children {
       display: flex;
       flex-direction: column;
       height: 100%;
-      border-right: 1px solid var(--hooks-colorBorderSecondary);
+      border-right: 1px solid var(--hooks-colorBorderSider);
       .ant-menu-root {
         flex: 1;
         width: 100%;
         overflow-y: auto;
-        background-color: var(--hooks-colorBgContainer);
+        background-color: var(--hooks-colorBgSider);
         border-right: none;
       }
     }
@@ -95,13 +97,8 @@
       height: 55px;
       padding: 0 40px 0 20px;
       line-height: 55px;
-      background-color: var(--hooks-colorBgContainer);
-      border-bottom: 1px solid var(--hooks-colorBorderSecondary);
+      background-color: var(--hooks-colorBgHeader);
+      border-bottom: 1px solid var(--hooks-colorBorderHeader);
     }
   }
-}
-
-/* ant-menu-sub */
-.ant-menu-sub {
-  background: var(--hooks-colorBgMenu) !important;
 }

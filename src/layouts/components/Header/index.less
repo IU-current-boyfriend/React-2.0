@@ -4,10 +4,10 @@
   align-items: center;
   padding-right: 50px;
   overflow: hidden;
-  mask-image: linear-gradient(90deg, #000000 0%, #000000 calc(100% - 50px), transparent);
   .collapsed {
     margin-right: 20px;
-    font-size: 18px;
+    font-size: calc((var(--hooks-fontSizeLG) + 2) * 1px);
+    color: var(--hooks-colorTextHeader);
     cursor: pointer;
     transition: color 0.3s;
     &:hover {
@@ -18,6 +18,28 @@
     white-space: nowrap;
     ol {
       flex-wrap: nowrap;
+      li:last-child {
+        color: var(--hooks-colorTextHeader);
+      }
+      .ant-breadcrumb-separator {
+        color: var(--hooks-colorTextSecondaryHeader);
+      }
+      .ant-breadcrumb-link {
+        a {
+          color: var(--hooks-colorTextSecondaryHeader);
+          &:hover {
+            color: var(--hooks-colorTextHeader);
+            background-color: var(--hooks-colorTextHoverHeader);
+          }
+        }
+      }
+      .ant-breadcrumb-overlay-link {
+        color: var(--hooks-colorTextSecondaryHeader);
+        &:hover {
+          color: var(--hooks-colorTextHeader);
+          background-color: var(--hooks-colorTextHoverHeader);
+        }
+      }
     }
   }
 }
@@ -29,14 +51,17 @@
   align-items: center;
   justify-content: space-between;
   height: 55px;
+  line-height: 55px;
   .header-icon {
     & > * {
       margin-left: 20px;
+      color: var(--hooks-colorTextHeader);
     }
   }
   .username {
-    margin: 20px;
+    margin: 0 20px;
     font-size: 15px;
+    color: var(--hooks-colorTextHeader);
   }
   .avatar {
     cursor: pointer;

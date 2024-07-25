@@ -13,5 +13,6 @@ export const Icon: React.FC<IconProps> = ({ name, className }) => {
 };
 
 export const IconFont = createFromIconfontCN({
-  scriptUrl: ["//at.alicdn.com/t/c/font_3878708_mmx4qpps1zh.js"]
+  // scriptUrl: ["//at.alicdn.com/t/c/font_3878708_mmx4qpps1zh.js"]
+  scriptUrl: ["//at.alicdn.com/t/c/font_3878708_l04g6iwc6y.js"]
 });

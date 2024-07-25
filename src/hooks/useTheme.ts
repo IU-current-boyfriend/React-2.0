@@ -1,63 +1,98 @@
+import { useEffect } from "react";
+import { shallowEqual } from "react-redux";
 import { theme } from "antd";
 import { RootState, useSelector } from "@/redux";
 import { getLightColor, getDarkColor } from "@/utils/color";
-import { shallowEqual } from "react-redux";
-import themeConfig from "@/styles/theme";
+import { setStyleProperty } from "@/utils";
+import siderTheme from "@/styles/theme/sider";
+import headerTheme from "@/styles/theme/header";
+import globalTheme from "@/styles/theme/global";
+
+type ThemeType = "light" | "inverted" | "dark";
 
 /**
  * @description Global theme settings
  * */
 const useTheme = () => {
-  const { token }: { [key: string]: any } = theme.useToken();
+  const { token } = theme.useToken();
 
-  const { isDark, primary, isGrey, isWeak } = useSelector((state: RootState) => {
-    return {
-      isDark: state.global.isDark,
-      primary: state.global.primary,
-      isGrey: state.global.isGrey,
-      isWeak: state.global.isWeak
-    };
-  }, shallowEqual);
+  const { isDark, primary, isGrey, isWeak, borderRadius, siderInverted, headerInverted, compactAlgorithm } = useSelector(
+    (state: RootState) => {
+      return {
+        isDark: state.global.isDark,
+        primary: state.global.primary,
+        isGrey: state.global.isGrey,
+        isWeak: state.global.isWeak,
+        borderRadius: state.global.borderRadius,
+        compactAlgorithm: state.global.compactAlgorithm,
+        siderInverted: state.global.siderInverted,
+        headerInverted: state.global.headerInverted
+      };
+    },
+    shallowEqual
+  );
+
+  useEffect(() => switchDark(), [isDark]);
 
   // Toggle dark mode
   const switchDark = () => {
-    const html = document.documentElement as HTMLElement;
-    if (isDark) html.setAttribute("class", "dark");
-    else html.setAttribute("class", "");
+    const html = document.documentElement;
+    html.setAttribute("class", isDark ? "dark" : "");
     changePrimary();
   };
 
+  useEffect(() => changePrimary(), [primary, borderRadius, compactAlgorithm]);
+
   // Toggle theme colors
   const changePrimary = () => {
-    const type = isDark ? "dark" : "light";
+    const type: ThemeType = isDark ? "dark" : "light";
     // custom less variable
-    Object.keys(themeConfig[type]).forEach(item => document.documentElement.style.setProperty(item, themeConfig[type][item]));
-    // antd less variable
-    Object.keys(token).forEach(item => document.documentElement.style.setProperty(`--hooks-${item}`, token[item]));
+    Object.entries(globalTheme[type]).forEach(([key, val]) => setStyleProperty(key, val));
+    // antd less varibale
+    Object.entries(token).forEach(([key, val]) => setStyleProperty(`--hooks-${key}`, val));
     // antd primaryColor less variable
     for (let i = 1; i <= 9; i++) {
-      document.documentElement.style.setProperty(
+      setStyleProperty(
         `--hooks-colorPrimary${i}`,
         isDark ? `${getDarkColor(primary, i / 10)}` : `${getLightColor(primary, i / 10)}`
       );
     }
   };
 
+  /**
+   * @description toggle Switch between gray and weak colors
+   *
+   */
+  useEffect(() => changeGreyOrWeak(), [isGrey, isWeak]);
+
   // Switch between gray and weak colors
   const changeGreyOrWeak = () => {
     const body = document.body as HTMLElement;
-    body.setAttribute("style", "");
-    if (isGrey) body.setAttribute("style", "filter: grayscale(1)");
-    if (isWeak) body.setAttribute("style", "filter: invert(80%)");
+    body.style.filter = isWeak ? "invert(80%)" : isGrey ? "grayscale(1)" : "";
   };
 
-  // initTheme
-  const initTheme = () => {
-    switchDark();
-    changeGreyOrWeak();
+  /**
+   * @description Toggle sider theme
+   *
+   *
+   */
+  useEffect(() => changeSiderTheme(), [isDark, siderInverted]);
+
+  const changeSiderTheme = () => {
+    const type: ThemeType = isDark ? "dark" : siderInverted ? "inverted" : "light";
+    Object.entries(siderTheme[type]).forEach(([key, val]) => setStyleProperty(key, val));
   };
 
-  return { initTheme };
+  /**
+   * @description Toggle header Theme
+   *
+   */
+  useEffect(() => changeHeaderTheme(), [isDark, headerInverted]);
+
+  const changeHeaderTheme = () => {
+    const type: ThemeType = isDark ? "dark" : headerInverted ? "inverted" : "light";
+    Object.entries(headerTheme[type]).forEach(([key, val]) => setStyleProperty(key, val));
+  };
 };
 
 export default useTheme;

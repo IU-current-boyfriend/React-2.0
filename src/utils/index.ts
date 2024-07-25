@@ -24,17 +24,22 @@ export function convertToSixDigitHexColor(str: string) {
 }
 
 /**
+ * @description description Set style properties
+ *
+ */
+export function setStyleProperty(key: string, val: string) {
+  document.documentElement.style.setProperty(key, val);
+}
+
+/**
  * @description Get the default language of the browser.
  * @returns {String}
  */
 export function getBrowserLang() {
   let browserLang = navigator.language ? navigator.language : navigator.browserLanguage;
   let defaultBrowserLang = "";
-  if (["cn", "zh", "zh-cn"].includes(browserLang.toLowerCase())) {
-    defaultBrowserLang = "zh";
-  } else {
-    defaultBrowserLang = "en";
-  }
+  if (["cn", "zh", "zh-cn"].includes(browserLang.toLocaleLowerCase())) defaultBrowserLang = "zh";
+  else defaultBrowserLang = "en";
   return defaultBrowserLang;
 }
 

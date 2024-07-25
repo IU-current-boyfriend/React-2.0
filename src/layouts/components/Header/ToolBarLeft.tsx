@@ -4,7 +4,7 @@ import "./index.less";
 
 const ToolBarLeft: React.FC = () => {
   return (
-    <div className="tool-bar-lf">
+    <div className="tool-bar-lf mask-image">
       <CollapseIcon />
       <BreadcrumbNav />
     </div>

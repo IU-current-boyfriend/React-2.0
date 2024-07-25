@@ -25,6 +25,7 @@ const LayoutMain: React.FC = () => {
 
   const { outletShow } = useContext(RefreshContext);
 
+  const layout = useSelector((state: RootState) => state.global.layout);
   const maximize = useSelector((state: RootState) => state.global.maximize);
   const isCollapse = useSelector((state: RootState) => state.global.isCollapse);
   const flatMenuList = useSelector((state: RootState) => state.auth.flatMenuList);
@@ -33,12 +34,9 @@ const LayoutMain: React.FC = () => {
   const { run } = useDebounceFn(
     () => {
       const screenWidth = document.body.clientWidth;
-      if (!isCollapse && screenWidth < 1200) {
-        dispatch(setGlobalState({ key: "isCollapse", value: true }));
-      }
-      if (isCollapse && screenWidth > 1200) {
-        dispatch(setGlobalState({ key: "isCollapse", value: false }));
-      }
+      const shouldCollapse = screenWidth < 1200;
+      // isCollapse => false  shouldCollapse => true
+      if (isCollapse !== shouldCollapse) dispatch(setGlobalState({ key: "isCollapse", value: shouldCollapse }));
     },
     { wait: 100 }
   );
@@ -50,9 +48,12 @@ const LayoutMain: React.FC = () => {
   // Monitor whether the current page is maximized, dynamically add class
   useEffect(() => {
     const root = document.getElementById("root") as HTMLElement;
-    if (maximize) root.classList.add("main-maximize");
-    else root.classList.remove("main-maximize");
+    root.classList.toggle("main-maximize", maximize);
   }, [maximize]);
+
+  useEffect(() => {
+    document.body.className = layout;
+  }, [layout]);
 
   // Solve the transition animation that causes useEffect to execute multiple times
   // @see: http://reactcommunity.org/react-transition-group/with-react-router

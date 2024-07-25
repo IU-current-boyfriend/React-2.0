@@ -48,7 +48,7 @@ const LayoutClassic: React.FC = () => {
             <img src={logo} alt="logo" className="logo-img" />
             <h2 className="logo-text">Hooks Admin</h2>
           </div>
-          {menuSplit ? <LayoutMenu mode="horizontal" menuSplit menuList={firstLevelMenuList} /> : <ToolBarLeft />}
+          {menuSplit ? <LayoutMenu mode="horizontal" menuSplit={true} menuList={firstLevelMenuList} /> : <ToolBarLeft />}
         </div>
         <div className="header-ri">
           <ToolBarRight />

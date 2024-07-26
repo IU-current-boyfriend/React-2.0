@@ -25,7 +25,6 @@ const LayoutMain: React.FC = () => {
 
   const { outletShow } = useContext(RefreshContext);
 
-  const layout = useSelector((state: RootState) => state.global.layout);
   const maximize = useSelector((state: RootState) => state.global.maximize);
   const isCollapse = useSelector((state: RootState) => state.global.isCollapse);
   const flatMenuList = useSelector((state: RootState) => state.auth.flatMenuList);
@@ -50,10 +49,6 @@ const LayoutMain: React.FC = () => {
     const root = document.getElementById("root") as HTMLElement;
     root.classList.toggle("main-maximize", maximize);
   }, [maximize]);
-
-  useEffect(() => {
-    document.body.className = layout;
-  }, [layout]);
 
   // Solve the transition animation that causes useEffect to execute multiple times
   // @see: http://reactcommunity.org/react-transition-group/with-react-router

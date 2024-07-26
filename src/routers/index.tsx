@@ -68,7 +68,7 @@ const RouterProvider: React.FC = () => {
     }
 
     const dynamicRouter = convertToDynamicRouterFormat(authMenuList);
-    let allRouter = [dynamicRouter, ...wrappedStaticRouter];
+    let allRouter = [...wrappedStaticRouter, ...dynamicRouter];
 
     // To prevent 404 from refreshing the page, add the * route at the end
     allRouter.forEach(item => item.path === "*" && (item.element = <NotFound />));

@@ -4,6 +4,8 @@ import "./index.less";
 
 const { Footer } = Layout;
 
+const APP_TITLE = import.meta.env.VITE_GLOB_APP_TITLE;
+
 const LayoutFooter: React.FC = () => {
   const footer = useSelector((state: RootState) => state.global.footer);
 
@@ -12,7 +14,7 @@ const LayoutFooter: React.FC = () => {
       {footer && (
         <Footer className="ant-footer">
           <a href="#" target="_blank" rel="noreferrer">
-            2023 © Hooks-Admin By Hooks Technology.
+            2023 © {APP_TITLE} By Hooks Technology.
           </a>
         </Footer>
       )}

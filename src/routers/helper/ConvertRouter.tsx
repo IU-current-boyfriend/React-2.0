@@ -17,7 +17,7 @@ const modules = import.meta.glob("@/views/**/*.tsx") as Record<string, Parameter
 export const convertToDynamicRouterFormat = (authMenuList: RouteObjectType[]) => {
   // Flatten the routing first here, you cannot directly use flatMenuList in redux
   const flatMenuList = getFlatMenuList(authMenuList);
-  flatMenuList.forEach(item => {
+  const handleMenuList = flatMenuList.map(item => {
     item.children && delete item.children;
     // Set redirection component
     if (item.redirect) item.element = <Navigate to={item.redirect} />;
@@ -30,12 +30,22 @@ export const convertToDynamicRouterFormat = (authMenuList: RouteObjectType[]) =>
         return { ...item.meta };
       };
     }
+    return item;
   });
 
-  const dynamicRouter: RouteObjectType = {
-    element: <LayoutIndex />,
-    children: flatMenuList
-  };
+  const dynamicRouter: RouteObjectType[] = [
+    {
+      element: <LayoutIndex />,
+      children: []
+    }
+  ];
+
+  // Add to Dynamic routing
+  handleMenuList.forEach(item => {
+    // 例如数据大屏不需要在布局组件中，它是需要全屏展示的，动态路由细分为两种
+    if (item.meta?.isFull) dynamicRouter.push(item);
+    else dynamicRouter[0].children?.push(item);
+  });
 
   return dynamicRouter;
 };

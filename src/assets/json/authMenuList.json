@@ -15,6 +15,101 @@
       }
     },
     {
+      "path": "/dataScreen/index",
+      "element": "/dataScreen/index",
+      "meta": {
+        "key": "dataScreen",
+        "icon": "PieChartOutlined",
+        "title": "数据大屏",
+        "isLink": "",
+        "isHide": false,
+        "isFull": true,
+        "isAffix": false
+      }
+    },
+    {
+      "path": "/auth",
+      "redirect": "/auth/menu",
+      "meta": {
+        "key": "auth",
+        "icon": "LockOutlined",
+        "title": "权限管理",
+        "isLink": "",
+        "isHide": false,
+        "isFull": false,
+        "isAffix": false
+      },
+      "children": [
+        {
+          "path": "/auth/menu",
+          "element": "/auth/menu/index",
+          "meta": {
+            "key": "authMenu",
+            "icon": "AppstoreOutlined",
+            "title": "菜单权限",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false
+          }
+        },
+        {
+          "path": "/auth/button",
+          "element": "/auth/button/index",
+          "meta": {
+            "key": "authButton",
+            "icon": "AppstoreOutlined",
+            "title": "按钮权限",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false
+          }
+        }
+      ]
+    },
+    {
+      "path": "/assembly",
+      "redirect": "/assembly/guide",
+      "meta": {
+        "key": "assembly",
+        "icon": "MedicineBoxOutlined",
+        "title": "常用组件",
+        "isLink": "",
+        "isHide": false,
+        "isFull": false,
+        "isAffix": false
+      },
+      "children": [
+        {
+          "path": "/assembly/guide",
+          "element": "/assembly/guide/index",
+          "meta": {
+            "key": "guide",
+            "icon": "AppstoreOutlined",
+            "title": "引导页",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false
+          }
+        },
+        {
+          "path": "/assembly/tabs",
+          "element": "/assembly/tabs/index",
+          "meta": {
+            "key": "tabs",
+            "icon": "AppstoreOutlined",
+            "title": "标签页操作",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false
+          }
+        }
+      ]
+    },
+    {
       "path": "/proTable",
       "redirect": "/proTable/useProTable",
       "meta": {
@@ -86,12 +181,12 @@
       ]
     },
     {
-      "path": "/auth",
-      "redirect": "/auth/menu",
+      "path": "/form",
+      "redirect": "/form/basicForm",
       "meta": {
-        "key": "auth",
-        "icon": "LockOutlined",
-        "title": "权限管理",
+        "key": "form",
+        "icon": "FormOutlined",
+        "title": "表单页面",
         "isLink": "",
         "isHide": false,
         "isFull": false,
@@ -99,12 +194,12 @@
       },
       "children": [
         {
-          "path": "/auth/menu",
-          "element": "/auth/menu/index",
+          "path": "/form/basicForm",
+          "element": "/form/basicForm/index",
           "meta": {
-            "key": "authMenu",
+            "key": "basicForm",
             "icon": "AppstoreOutlined",
-            "title": "菜单权限",
+            "title": "基础表单",
             "isLink": "",
             "isHide": false,
             "isFull": false,
@@ -112,12 +207,66 @@
           }
         },
         {
-          "path": "/auth/button",
-          "element": "/auth/button/index",
+          "path": "/form/stepForm",
+          "element": "/form/stepForm/index",
           "meta": {
-            "key": "authButton",
+            "key": "stepForm",
             "icon": "AppstoreOutlined",
-            "title": "按钮权限",
+            "title": "分步表单",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false
+          }
+        },
+        {
+          "path": "/form/advancedForm",
+          "element": "/form/advancedForm/index",
+          "meta": {
+            "key": "advancedForm",
+            "icon": "AppstoreOutlined",
+            "title": "高级表单",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false
+          }
+        }
+      ]
+    },
+    {
+      "path": "/result",
+      "redirect": "/result/success",
+      "meta": {
+        "key": "result",
+        "icon": "CheckCircleOutlined",
+        "title": "结果页面",
+        "isLink": "",
+        "isHide": false,
+        "isFull": false,
+        "isAffix": false
+      },
+      "children": [
+        {
+          "path": "/result/success",
+          "element": "/result/success/index",
+          "meta": {
+            "key": "success",
+            "icon": "AppstoreOutlined",
+            "title": "成功页",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false
+          }
+        },
+        {
+          "path": "/result/fail",
+          "element": "/result/fail/index",
+          "meta": {
+            "key": "fail",
+            "icon": "AppstoreOutlined",
+            "title": "失败页",
             "isLink": "",
             "isHide": false,
             "isFull": false,
@@ -300,64 +449,12 @@
             "isFull": false,
             "isAffix": false
           }
-        },
-        {
-          "path": "/system/departmentManage",
-          "element": "/system/departmentManage/index",
-          "meta": {
-            "key": "departmentManage",
-            "icon": "AppstoreOutlined",
-            "title": "部门管理",
-            "isLink": "",
-            "isHide": false,
-            "isFull": false,
-            "isAffix": false
-          }
-        },
-        {
-          "path": "/system/dictManage",
-          "element": "/system/dictManage/index",
-          "meta": {
-            "key": "dictManage",
-            "icon": "AppstoreOutlined",
-            "title": "字典管理",
-            "isLink": "",
-            "isHide": false,
-            "isFull": false,
-            "isAffix": false
-          }
-        },
-        {
-          "path": "/system/timingTask",
-          "element": "/system/timingTask/index",
-          "meta": {
-            "key": "timingTask",
-            "icon": "AppstoreOutlined",
-            "title": "定时任务",
-            "isLink": "",
-            "isHide": false,
-            "isFull": false,
-            "isAffix": false
-          }
-        },
-        {
-          "path": "/system/systemLog",
-          "element": "/system/systemLog/index",
-          "meta": {
-            "key": "systemLog",
-            "icon": "AppstoreOutlined",
-            "title": "系统日志",
-            "isLink": "",
-            "isHide": false,
-            "isFull": false,
-            "isAffix": false
-          }
         }
       ]
     },
     {
       "path": "/link",
-      "redirect": "/link/gitee",
+      "redirect": "/link/bing",
       "meta": {
         "key": "link",
         "icon": "PaperClipOutlined",
@@ -369,13 +466,26 @@
       },
       "children": [
         {
+          "path": "/link/bing",
+          "element": "/link/bing/index",
+          "meta": {
+            "key": "bing",
+            "icon": "AppstoreOutlined",
+            "title": "Bing 内嵌",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false
+          }
+        },
+        {
           "path": "/link/gitee",
           "element": "/link/gitee/index",
           "meta": {
             "key": "gitee",
             "icon": "AppstoreOutlined",
             "title": "Gitee 仓库",
-            "isLink": "https://gitee.com/HalseySpicy/Geeker-Admin",
+            "isLink": "https://gitee.com/HalseySpicy/Hooks-Admin",
             "isHide": false,
             "isFull": false,
             "isAffix": false
@@ -388,7 +498,20 @@
             "key": "github",
             "icon": "AppstoreOutlined",
             "title": "GitHub 仓库",
-            "isLink": "https://github.com/HalseySpicy/Geeker-Admin",
+            "isLink": "https://github.com/HalseySpicy/Hooks-Admin",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false
+          }
+        },
+        {
+          "path": "/link/juejin",
+          "element": "/link/juejin/index",
+          "meta": {
+            "key": "juejin",
+            "icon": "AppstoreOutlined",
+            "title": "JueJin 主页",
+            "isLink": "https://juejin.cn/user/3263814531551816/posts",
             "isHide": false,
             "isFull": false,
             "isAffix": false

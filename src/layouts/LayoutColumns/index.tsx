@@ -13,6 +13,8 @@ import "./index.less";
 
 const { Header, Sider } = Layout;
 
+const APP_TITLE = import.meta.env.VITE_GLOB_APP_TITLE;
+
 const LayoutColumns: React.FC = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -73,7 +75,7 @@ const LayoutColumns: React.FC = () => {
         {subMenuList.length ? (
           <>
             <div className="logo">
-              <span className="logo-text">{isCollapse ? "H" : "Hooks Admin"}</span>
+              <span className="logo-text">{isCollapse ? "H" : APP_TITLE}</span>
             </div>
             <LayoutMenu mode="inline" menuList={subMenuList}></LayoutMenu>
           </>

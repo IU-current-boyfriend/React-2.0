@@ -14,6 +14,8 @@ import "./index.less";
 
 const { Header, Sider } = Layout;
 
+const APP_TITLE = import.meta.env.VITE_GLOB_APP_TITLE;
+
 const LayoutClassic: React.FC = () => {
   const { pathname } = useLocation();
   const isCollapse = useSelector((state: RootState) => state.global.isCollapse);
@@ -46,7 +48,7 @@ const LayoutClassic: React.FC = () => {
         <div className={`header-lf ${menuSplit ? "hide-logo" : "mask-image"}`}>
           <div className="logo">
             <img src={logo} alt="logo" className="logo-img" />
-            <h2 className="logo-text">Hooks Admin</h2>
+            <h2 className="logo-text">{APP_TITLE}</h2>
           </div>
           {menuSplit ? <LayoutMenu mode="horizontal" menuSplit={true} menuList={firstLevelMenuList} /> : <ToolBarLeft />}
         </div>
